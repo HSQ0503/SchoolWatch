@@ -3,7 +3,9 @@
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useHasMounted } from "@/hooks/useHasMounted";
+import { storageKey } from "@/lib/storage";
 import { ANSWER_WORDS, VALID_GUESSES } from "@/lib/wordle-words";
+import config from "@/school.config";
 
 type GameStatus = "playing" | "won" | "lost";
 type LetterState = "correct" | "present" | "absent" | "empty" | "tbd";
@@ -73,7 +75,7 @@ function evaluateGuess(guess: string, answer: string): LetterState[] {
 function loadGameState(): GameState | null {
   if (typeof window === "undefined") return null;
   try {
-    const stored = localStorage.getItem("lakerwatch-wordle");
+    const stored = localStorage.getItem(storageKey("wordle"));
     if (stored) {
       const state = JSON.parse(stored) as GameState;
       if (state.date === getTodayStr()) return state;
@@ -83,7 +85,7 @@ function loadGameState(): GameState | null {
 }
 
 function saveGameState(state: GameState) {
-  localStorage.setItem("lakerwatch-wordle", JSON.stringify(state));
+  localStorage.setItem(storageKey("wordle"), JSON.stringify(state));
 }
 
 const KEYBOARD_ROWS = [
@@ -274,7 +276,7 @@ export default function WordlePage() {
     const today = getTodayStr();
     const [, mo, da] = today.split("-");
     const attemptStr = status === "won" ? `${guesses.length}/${MAX_GUESSES}` : `X/${MAX_GUESSES}`;
-    let text = `LakerWatch Wordle ${parseInt(mo)}/${parseInt(da)}/${today.slice(0, 4)} ${attemptStr}\n\n`;
+    let text = `${config.school.appName} Wordle ${parseInt(mo)}/${parseInt(da)}/${today.slice(0, 4)} ${attemptStr}\n\n`;
 
     for (const guess of guesses) {
       const evaluation = evaluateGuess(guess, answer);

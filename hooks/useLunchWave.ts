@@ -1,19 +1,28 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import type { LunchWave } from "@/lib/schedule";
+import config from "@/school.config";
+import { storageKey } from "@/lib/storage";
 
-const STORAGE_KEY = "lakerwatch-lunch-wave";
-const EVENT_NAME = "lakerwatch-lunch-wave-change";
+export type LunchWave = string;
 
-function read(): LunchWave {
-  if (typeof window === "undefined") return "11/12";
+const lunchWaveConfig = config.lunchWaves;
+const options = lunchWaveConfig.options;
+const defaultWave = lunchWaveConfig.default || options[0]?.id || "";
+const hasLunchWaves = options.length > 0;
+
+const STORAGE_KEY = storageKey("lunch-wave");
+const EVENT_NAME = storageKey("lunch-wave-change");
+
+function read(): string {
+  if (typeof window === "undefined") return defaultWave;
   const stored = localStorage.getItem(STORAGE_KEY);
-  return stored === "9/10" || stored === "11/12" ? stored : "11/12";
+  if (stored && options.some((o) => o.id === stored)) return stored;
+  return defaultWave;
 }
 
 export function useLunchWave() {
-  const [lunchWave, setLunchWave] = useState<LunchWave>(read);
+  const [lunchWave, setLunchWave] = useState<string>(read);
 
   useEffect(() => {
     const handler = () => setLunchWave(read());
@@ -21,16 +30,18 @@ export function useLunchWave() {
     return () => window.removeEventListener(EVENT_NAME, handler);
   }, []);
 
-  const setWave = useCallback((wave: LunchWave) => {
+  const setWave = useCallback((wave: string) => {
     setLunchWave(wave);
     localStorage.setItem(STORAGE_KEY, wave);
     window.dispatchEvent(new Event(EVENT_NAME));
   }, []);
 
   const toggle = useCallback(() => {
-    const next: LunchWave = read() === "9/10" ? "11/12" : "9/10";
-    setWave(next);
+    const current = read();
+    const currentIdx = options.findIndex((o) => o.id === current);
+    const nextIdx = (currentIdx + 1) % options.length;
+    setWave(options[nextIdx].id);
   }, [setWave]);
 
-  return { lunchWave, setWave, toggle };
+  return { lunchWave, setWave, toggle, options, hasLunchWaves };
 }

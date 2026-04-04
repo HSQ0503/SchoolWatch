@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import ScheduleView from "@/components/ScheduleView";
+import config from "@/school.config";
 
 export const metadata: Metadata = {
   title: "Full Schedule",
-  description:
-    "View the full weekly bell schedule for Windermere Preparatory School including Monday, odd day, and even day periods with lunch wave times.",
+  description: `View the full weekly bell schedule for ${config.school.name} including Monday, odd day, and even day periods with lunch wave times.`,
 };
 
 export default function SchedulePage() {

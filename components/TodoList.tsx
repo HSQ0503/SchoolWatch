@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useHasMounted } from "@/hooks/useHasMounted";
+import { storageKey } from "@/lib/storage";
 
 type Todo = {
   id: string;
@@ -28,7 +29,7 @@ function getCategoryColor(category: string): string {
 function readTodos(): Todo[] {
   if (typeof window === "undefined") return [];
   try {
-    const stored = localStorage.getItem("lakerwatch-todos");
+    const stored = localStorage.getItem(storageKey("todos"));
     return stored ? JSON.parse(stored) : [];
   } catch {
     return [];
@@ -44,7 +45,7 @@ export default function TodoList() {
 
   useEffect(() => {
     if (mounted) {
-      localStorage.setItem("lakerwatch-todos", JSON.stringify(todos));
+      localStorage.setItem(storageKey("todos"), JSON.stringify(todos));
     }
   }, [todos, mounted]);
 

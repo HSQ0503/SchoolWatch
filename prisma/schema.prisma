@@ -40,22 +40,3 @@ model Announcement {
   updatedAt DateTime @updatedAt
 }
 
-model PrepTalk {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  youtubeUrl  String
-  weekDate    String // "YYYY-MM-DD"
-  description String?
-  likes       Int      @default(0)
-  dislikes    Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model LunchMenu {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  weekStart String   @unique // "YYYY-MM-DD" (Sunday of the week)
-  days      Json     // Raw Flik API days array
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}

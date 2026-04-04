@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { useHasMounted } from "@/hooks/useHasMounted";
+import { storageKey } from "@/lib/storage";
 
 type Mode = "focus" | "short" | "long" | "custom";
 
@@ -24,7 +25,7 @@ function getTodayKey(): string {
 function readSessions(): { date: string; count: number } {
   if (typeof window === "undefined") return { date: "", count: 0 };
   try {
-    const stored = localStorage.getItem("lakerwatch-pomodoro-sessions");
+    const stored = localStorage.getItem(storageKey("pomodoro-sessions"));
     if (stored) {
       const data = JSON.parse(stored);
       if (data.date === getTodayKey()) return data;
@@ -35,7 +36,7 @@ function readSessions(): { date: string; count: number } {
 
 function saveSessions(count: number) {
   localStorage.setItem(
-    "lakerwatch-pomodoro-sessions",
+    storageKey("pomodoro-sessions"),
     JSON.stringify({ date: getTodayKey(), count }),
   );
 }

@@ -10,6 +10,7 @@ import type { Announcement } from "@/lib/announcements";
 import type { SchoolEvent } from "@/lib/events";
 import { formatDateStr } from "@/lib/schedule";
 import { getDevDate } from "@/lib/devTime";
+import config from "@/school.config";
 
 export default function Dashboard() {
   const { lunchWave } = useLunchWave();
@@ -19,16 +20,18 @@ export default function Dashboard() {
   const lastAnnouncementsJson = useRef("");
 
   const poll = useCallback(() => {
-    fetch("/api/announcements")
-      .then((res) => res.json())
-      .then((data: Announcement[]) => {
-        const json = JSON.stringify(data);
-        if (json !== lastAnnouncementsJson.current) {
-          lastAnnouncementsJson.current = json;
-          setAnnouncements(data);
-        }
-      })
-      .catch(() => {});
+    if (config.features.announcements) {
+      fetch("/api/announcements")
+        .then((res) => res.json())
+        .then((data: Announcement[]) => {
+          const json = JSON.stringify(data);
+          if (json !== lastAnnouncementsJson.current) {
+            lastAnnouncementsJson.current = json;
+            setAnnouncements(data);
+          }
+        })
+        .catch(() => {});
+    }
 
     const today = formatDateStr(getDevDate(new Date()));
     fetch("/api/events")

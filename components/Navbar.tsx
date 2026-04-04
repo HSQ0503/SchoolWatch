@@ -8,13 +8,13 @@ import { useTheme } from "@/hooks/useTheme";
 import { useLunchWave } from "@/hooks/useLunchWave";
 import { useHasMounted } from "@/hooks/useHasMounted";
 
-const NAV_LINKS = [
+import config from "@/school.config";
+
+const NAV_LINKS: { href: string; label: string }[] = [
   { href: "/", label: "Dashboard" },
   { href: "/schedule", label: "Schedule" },
-  { href: "/events", label: "Events" },
-  { href: "/lunch", label: "Lunch" },
-  { href: "/productivity", label: "Productivity" },
-  { href: "/media", label: "WPS-Media" },
+  ...(config.features.events ? [{ href: "/events", label: "Events" }] : []),
+  ...(config.features.productivity ? [{ href: "/productivity", label: "Productivity" }] : []),
 ];
 
 function SunIcon({ className }: { className?: string }) {
@@ -45,25 +45,39 @@ function MoonIcon({ className }: { className?: string }) {
 
 function LunchWaveToggle() {
   const hasMounted = useHasMounted();
-  const { lunchWave, toggle } = useLunchWave();
+  const { lunchWave, toggle, options, hasLunchWaves } = useLunchWave();
 
+  if (!hasLunchWaves) return null;
   if (!hasMounted) return <div className="h-7 w-24" />;
 
-  const is1112 = lunchWave === "11/12";
+  if (options.length === 2) {
+    const isSecond = lunchWave === options[1].id;
+    return (
+      <button
+        onClick={toggle}
+        className="group flex items-center gap-2 rounded-full border border-border bg-bg px-2.5 py-1 text-xs font-medium text-muted transition-colors hover:border-red/30 hover:text-text dark:border-dark-border dark:bg-dark-surface dark:text-dark-muted dark:hover:border-red/40 dark:hover:text-dark-text"
+        title={`Lunch: ${lunchWave}`}
+      >
+        <span className={`transition-colors ${!isSecond ? "font-bold text-red" : ""}`}>{options[0].id}</span>
+        <div className="relative h-4 w-8 rounded-full bg-border transition-colors group-hover:bg-red/20 dark:bg-white/15 dark:group-hover:bg-red/30">
+          <div
+            className={`absolute top-0.5 h-3 w-3 rounded-full bg-red shadow-sm transition-all ${isSecond ? "left-[18px]" : "left-0.5"}`}
+          />
+        </div>
+        <span className={`transition-colors ${isSecond ? "font-bold text-red" : ""}`}>{options[1].id}</span>
+      </button>
+    );
+  }
 
+  // 3+ options: cycle button
+  const current = options.find((o) => o.id === lunchWave);
   return (
     <button
       onClick={toggle}
-      className="group flex items-center gap-2 rounded-full border border-border bg-bg px-2.5 py-1 text-xs font-medium text-muted transition-colors hover:border-red/30 hover:text-text dark:border-dark-border dark:bg-dark-surface dark:text-dark-muted dark:hover:border-red/40 dark:hover:text-dark-text"
-      title={`Lunch: Grades ${lunchWave}`}
+      className="rounded-full border border-border bg-bg px-2.5 py-1 text-xs font-bold text-red transition-colors hover:border-red/30 dark:border-dark-border dark:bg-dark-surface dark:text-red-light dark:hover:border-red/40"
+      title={`Lunch: ${current?.label ?? lunchWave}`}
     >
-      <span className={`transition-colors ${!is1112 ? "font-bold text-red" : ""}`}>9/10</span>
-      <div className="relative h-4 w-8 rounded-full bg-border transition-colors group-hover:bg-red/20 dark:bg-white/15 dark:group-hover:bg-red/30">
-        <div
-          className={`absolute top-0.5 h-3 w-3 rounded-full bg-red shadow-sm transition-all ${is1112 ? "left-[18px]" : "left-0.5"}`}
-        />
-      </div>
-      <span className={`transition-colors ${is1112 ? "font-bold text-red" : ""}`}>11/12</span>
+      {current?.id ?? lunchWave}
     </button>
   );
 }
@@ -107,13 +121,13 @@ export default function Navbar() {
           className="flex shrink-0 items-center gap-2 font-display text-xl font-bold tracking-tight"
         >
           <Image
-            src="/logo.jpg"
-            alt="WP Logo"
+            src={config.school.logoPath}
+            alt={`${config.school.acronym} Logo`}
             width={36}
             height={36}
             className="rounded"
           />
-          <span className="text-red dark:text-white">Laker<span className="text-red"> Watch</span></span>
+          <span className="text-red dark:text-white">{config.school.appName}</span>
         </Link>
 
         {/* Center — Nav links */}

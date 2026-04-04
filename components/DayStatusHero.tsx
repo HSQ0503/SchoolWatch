@@ -10,6 +10,7 @@ import {
   getNextSchoolDay,
 } from "@/lib/schedule";
 import { getDevDate } from "@/lib/devTime";
+import config from "@/school.config";
 
 const DAY_NAMES = [
   "Sunday",
@@ -21,11 +22,18 @@ const DAY_NAMES = [
   "Saturday",
 ];
 
-const BADGE_COLORS = {
-  monday: "border-border bg-bg text-text dark:border-dark-border dark:bg-dark-surface dark:text-dark-text",
-  odd: "border-red/20 bg-red-light text-white",
-  even: "border-red/20 bg-red text-white",
-};
+const BADGE_PALETTE = [
+  "border-border bg-bg text-text dark:border-dark-border dark:bg-dark-surface dark:text-dark-text",
+  "border-red/20 bg-red-light text-white",
+  "border-red/20 bg-red text-white",
+];
+
+const BADGE_COLORS: Record<string, string> = Object.fromEntries(
+  config.schedule.dayTypes.map((dt, i) => [
+    dt.id,
+    BADGE_PALETTE[Math.min(i, BADGE_PALETTE.length - 1)],
+  ]),
+);
 
 export default function DayStatusHero({ isEarlyDismissal = false }: { isEarlyDismissal?: boolean }) {
   const mounted = useHasMounted();
@@ -46,7 +54,7 @@ export default function DayStatusHero({ isEarlyDismissal = false }: { isEarlyDis
 
   if (dayOfWeek === 0 || dayOfWeek === 6 || isNoSchoolDate(dateStr)) {
     const next = getNextSchoolDay(now);
-    const badgeColor = next ? BADGE_COLORS[next.dayType] : "";
+    const badgeColor = next ? (BADGE_COLORS[next.dayType] ?? BADGE_PALETTE[0]) : "";
 
     return (
       <div className="py-4 text-center">
@@ -76,7 +84,7 @@ export default function DayStatusHero({ isEarlyDismissal = false }: { isEarlyDis
   if (!dayType) return null;
 
   const dayTypeLabel = getDayTypeLabel(dayType);
-  const badgeColor = BADGE_COLORS[dayType];
+  const badgeColor = BADGE_COLORS[dayType] ?? BADGE_PALETTE[0];
 
   return (
     <div className="py-4 text-center">

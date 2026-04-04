@@ -11,17 +11,17 @@ import {
   formatTime,
   getPeriodDuration,
   timeToMinutes,
-  type LunchWave,
 } from "@/lib/schedule";
 import { getDevDate } from "@/lib/devTime";
+import config from "@/school.config";
 
-const DAY_TABS = [
-  { label: "Mon", dayOfWeek: 1 },
-  { label: "Tue", dayOfWeek: 2 },
-  { label: "Wed", dayOfWeek: 3 },
-  { label: "Thu", dayOfWeek: 4 },
-  { label: "Fri", dayOfWeek: 5 },
-];
+const SHORT_DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+const DAY_TABS = config.schedule.dayTypes
+  .flatMap((dt) => dt.weekdays)
+  .sort((a, b) => a - b)
+  .filter((v, i, a) => a.indexOf(v) === i)
+  .map((d) => ({ label: SHORT_DAY_NAMES[d], dayOfWeek: d }));
 
 function formatCountdown(seconds: number): string {
   if (seconds <= 0) return "0:00";
@@ -35,14 +35,15 @@ function formatCountdown(seconds: number): string {
 }
 
 function getInitialDay(): number {
-  if (typeof window === "undefined") return 1;
+  if (typeof window === "undefined") return DAY_TABS[0]?.dayOfWeek ?? 1;
   const today = new Date().getDay();
-  return today >= 1 && today <= 5 ? today : 1;
+  const hasToday = DAY_TABS.some((t) => t.dayOfWeek === today);
+  return hasToday ? today : DAY_TABS[0]?.dayOfWeek ?? 1;
 }
 
 export default function ScheduleView() {
   const mounted = useHasMounted();
-  const { lunchWave, setWave } = useLunchWave();
+  const { lunchWave, setWave, options, hasLunchWaves } = useLunchWave();
   const [selectedDay, setSelectedDay] = useState(getInitialDay);
   const [now, setNow] = useState(() => getDevDate(new Date()));
   const [showImage, setShowImage] = useState(false);
@@ -51,10 +52,6 @@ export default function ScheduleView() {
     const interval = setInterval(() => setNow(getDevDate(new Date())), 1000);
     return () => clearInterval(interval);
   }, []);
-
-  const handleLunchWaveChange = (wave: LunchWave) => {
-    setWave(wave);
-  };
 
   if (!mounted) {
     return (
@@ -75,24 +72,26 @@ export default function ScheduleView() {
   return (
     <div className="space-y-6">
       {/* Lunch wave toggle */}
-      <div className="flex items-center gap-3">
-        <span className="text-sm text-muted dark:text-dark-muted">Lunch Wave:</span>
-        <div className="flex overflow-hidden rounded-lg border border-border dark:border-dark-border">
-          {(["9/10", "11/12"] as LunchWave[]).map((wave) => (
-            <button
-              key={wave}
-              onClick={() => handleLunchWaveChange(wave)}
-              className={`px-4 py-2 text-sm font-medium transition-colors ${
-                lunchWave === wave
-                  ? "bg-red text-white"
-                  : "bg-white dark:bg-dark-surface text-muted dark:text-dark-muted hover:text-text dark:hover:text-dark-text"
-              }`}
-            >
-              Grades {wave}
-            </button>
-          ))}
+      {hasLunchWaves && (
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-muted dark:text-dark-muted">Lunch Wave:</span>
+          <div className="flex overflow-hidden rounded-lg border border-border dark:border-dark-border">
+            {options.map((opt) => (
+              <button
+                key={opt.id}
+                onClick={() => setWave(opt.id)}
+                className={`px-4 py-2 text-sm font-medium transition-colors ${
+                  lunchWave === opt.id
+                    ? "bg-red text-white"
+                    : "bg-white dark:bg-dark-surface text-muted dark:text-dark-muted hover:text-text dark:hover:text-dark-text"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Day tabs */}
       <div className="flex gap-1 rounded-lg border border-border dark:border-dark-border bg-white dark:bg-dark-surface p-1">
@@ -170,12 +169,6 @@ export default function ScheduleView() {
         })}
       </div>
 
-      {selectedDay === 3 && (
-        <p className="text-center text-sm text-red">
-          Wednesday Early Release — School ends at 2:00 PM
-        </p>
-      )}
-
       {/* Official schedule image button */}
       <div className="flex justify-center pt-2">
         <button
@@ -229,7 +222,7 @@ export default function ScheduleView() {
             </button>
             <Image
               src="/Schedual.jpg"
-              alt="WPS 2024-2025 Daily Schedule"
+              alt={`${config.school.acronym} ${config.school.academicYear} Daily Schedule`}
               width={800}
               height={600}
               className="h-auto w-full rounded-xl"

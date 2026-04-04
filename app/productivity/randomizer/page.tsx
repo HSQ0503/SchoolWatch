@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useHasMounted } from "@/hooks/useHasMounted";
+import { storageKey } from "@/lib/storage";
 
 type TabMode = "pick" | "groups";
 
@@ -14,7 +15,7 @@ const COLORS = [
 function readNames(): string[] {
   if (typeof window === "undefined") return [];
   try {
-    const stored = localStorage.getItem("lakerwatch-randomizer-names");
+    const stored = localStorage.getItem(storageKey("randomizer-names"));
     return stored ? JSON.parse(stored) : [];
   } catch {
     return [];
@@ -22,7 +23,7 @@ function readNames(): string[] {
 }
 
 function saveNames(names: string[]) {
-  localStorage.setItem("lakerwatch-randomizer-names", JSON.stringify(names));
+  localStorage.setItem(storageKey("randomizer-names"), JSON.stringify(names));
 }
 
 // Fisher-Yates shuffle

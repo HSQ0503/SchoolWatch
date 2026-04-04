@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import config from "@/school.config";
+
+const { school } = config;
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description:
-    "LakerWatch privacy policy — learn how we handle your data. No personal information is collected.",
+  description: `${school.appName} privacy policy — learn how we handle your data. No personal information is collected.`,
 };
 
 export default function PrivacyPolicy() {
@@ -21,8 +23,8 @@ export default function PrivacyPolicy() {
           Overview
         </h2>
         <p>
-          LakerWatch is a school utility dashboard and Chrome extension built for
-          Windermere Preparatory School students. We are committed to protecting
+          {school.appName} is a school utility dashboard and Chrome extension built for{" "}
+          {school.name} students. We are committed to protecting
           your privacy. This policy explains what data we collect (very little)
           and how it is used.
         </p>
@@ -34,7 +36,7 @@ export default function PrivacyPolicy() {
         </h2>
         <p>
           <strong className="text-text dark:text-dark-text">We do not collect any personal information.</strong>{" "}
-          LakerWatch does not require you to create an account, log in, or
+          {school.appName} does not require you to create an account, log in, or
           provide any personal details.
         </p>
         <p>All user preferences are stored locally on your device:</p>
@@ -56,7 +58,7 @@ export default function PrivacyPolicy() {
           Analytics
         </h2>
         <p>
-          The LakerWatch website uses Vercel Analytics to collect anonymous,
+          The {school.appName} website uses Vercel Analytics to collect anonymous,
           aggregated usage data such as page views and visit counts. No
           personally identifiable information is collected. The Chrome extension
           does not use any analytics.
@@ -68,7 +70,7 @@ export default function PrivacyPolicy() {
           Third-Party Services
         </h2>
         <p>
-          LakerWatch does not share any data with third parties. We do not use
+          {school.appName} does not share any data with third parties. We do not use
           cookies, tracking pixels, or advertising networks.
         </p>
       </section>
@@ -78,7 +80,7 @@ export default function PrivacyPolicy() {
           Chrome Extension
         </h2>
         <p>
-          The LakerWatch Chrome extension stores only your lunch wave preference
+          The {school.appName} Chrome extension stores only your lunch wave preference
           using Chrome&apos;s local storage API. No data is transmitted to any
           server. The extension does not access your browsing history, tabs, or
           any other browser data.
@@ -90,7 +92,7 @@ export default function PrivacyPolicy() {
           Children&apos;s Privacy
         </h2>
         <p>
-          LakerWatch is designed for high school students. We do not knowingly
+          {school.appName} is designed for high school students. We do not knowingly
           collect personal information from anyone. Since all data is stored
           locally on the user&apos;s device, no personal data is ever transmitted
           or stored on our servers.
@@ -113,7 +115,7 @@ export default function PrivacyPolicy() {
         </h2>
         <p>
           If you have any questions about this privacy policy, please reach out
-          via the LakerWatch GitHub repository.
+          via the {school.appName} GitHub repository.
         </p>
       </section>
     </div>

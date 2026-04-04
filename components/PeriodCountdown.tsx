@@ -20,12 +20,20 @@ import {
   type LunchWave,
 } from "@/lib/schedule";
 import { getDevDate } from "@/lib/devTime";
+import config from "@/school.config";
 
-const BADGE_COLORS = {
-  monday: "border-border bg-bg text-text dark:border-dark-border dark:bg-dark-surface dark:text-dark-text",
-  odd: "border-red/20 bg-red-light text-white",
-  even: "border-red/20 bg-red text-white",
-};
+const BADGE_PALETTE = [
+  "border-border bg-bg text-text dark:border-dark-border dark:bg-dark-surface dark:text-dark-text",
+  "border-red/20 bg-red-light text-white",
+  "border-red/20 bg-red text-white",
+];
+
+const BADGE_COLORS: Record<string, string> = Object.fromEntries(
+  config.schedule.dayTypes.map((dt, i) => [
+    dt.id,
+    BADGE_PALETTE[Math.min(i, BADGE_PALETTE.length - 1)],
+  ]),
+);
 
 const RADIUS = 90;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
@@ -79,7 +87,7 @@ export default function PeriodCountdown({
   // School is over
   if (isSchoolOver(schedule, now)) {
     const next = getNextSchoolDay(now);
-    const badgeColor = next ? BADGE_COLORS[next.dayType] : "";
+    const badgeColor = next ? (BADGE_COLORS[next.dayType] ?? BADGE_PALETTE[0]) : "";
 
     return (
       <div className="pt-6 pb-2 text-center">
@@ -135,8 +143,8 @@ export default function PeriodCountdown({
           >
             <defs>
               <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#d43344" />
-                <stop offset="100%" stopColor="#b22234" />
+                <stop offset="0%" stopColor="var(--color-accent-light)" />
+                <stop offset="100%" stopColor="var(--color-accent)" />
               </linearGradient>
             </defs>
             <circle

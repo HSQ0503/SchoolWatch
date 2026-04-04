@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
+import config from "@/school.config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://lakerwatch.com";
+  const baseUrl = `https://${config.school.domain}`;
 
   return [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "daily", priority: 1 },

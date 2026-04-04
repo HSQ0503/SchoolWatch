@@ -1,135 +1,12 @@
-export type Period = {
-  name: string;
-  start: string; // "HH:MM" 24hr
-  end: string; // "HH:MM" 24hr
-};
+import config from "../school.config";
+import type { Period } from "./types/config";
 
-export type DayType = "monday" | "odd" | "even";
-export type LunchWave = "9/10" | "11/12";
+export type { Period };
+export type LunchWave = string;
+export type DayType = string;
 
-export const EIGHT_PERIOD_OVERRIDES: string[] = [];
-
-export const NO_SCHOOL_DATES: string[] = [
-  // Labor Day
-  "2025-09-01",
-  // Conference Day
-  "2025-09-19",
-  // Fall Break + PD day
-  "2025-10-09",
-  "2025-10-10",
-  "2025-10-13",
-  // Veterans Day
-  "2025-11-11",
-  // Thanksgiving Break
-  "2025-11-24", "2025-11-25", "2025-11-26", "2025-11-27", "2025-11-28",
-  // Teacher Work Day
-  "2025-12-19",
-  // Winter Break
-  "2025-12-22", "2025-12-23", "2025-12-24", "2025-12-25", "2025-12-26",
-  "2025-12-29", "2025-12-30", "2025-12-31", "2026-01-01", "2026-01-02",
-  // PD Day
-  "2026-01-05",
-  // MLK Jr. Day
-  "2026-01-19",
-  // Conference Day (no school for HS)
-  "2026-01-30",
-  // Presidents' Day Weekend
-  "2026-02-13", "2026-02-14", "2026-02-15", "2026-02-16",
-  // PD Day
-  "2026-03-13",
-  // Spring Break
-  "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20",
-  // Hurricane Make-Up Day
-  "2026-04-13",
-];
-
-export const EARLY_DISMISSAL_DATES: string[] = [
-  "2025-10-08",
-  "2025-12-18",
-  "2026-03-12",
-];
-
-// --- Monday (All 8 Periods) ---
-
-const MONDAY_BEFORE: Period[] = [
-  { name: "1st Period", start: "07:45", end: "08:30" },
-  { name: "2nd Period", start: "08:35", end: "09:20" },
-  { name: "3rd Period", start: "09:25", end: "10:10" },
-  { name: "4th Core/TOK", start: "10:15", end: "10:50" },
-  { name: "5th Period", start: "10:55", end: "11:40" },
-];
-
-const MONDAY_910: Period[] = [
-  { name: "Lunch", start: "11:45", end: "12:20" },
-  { name: "6th Period", start: "12:25", end: "13:10" },
-];
-
-const MONDAY_1112: Period[] = [
-  { name: "6th Period", start: "11:45", end: "12:30" },
-  { name: "Lunch", start: "12:35", end: "13:10" },
-];
-
-const MONDAY_AFTER: Period[] = [
-  { name: "7th Period", start: "13:15", end: "14:00" },
-  { name: "8th Period", start: "14:05", end: "14:50" },
-];
-
-// --- Tuesday/Thursday (Odd Day) ---
-
-const ODD_BEFORE: Period[] = [
-  { name: "1st Period", start: "07:45", end: "09:15" },
-  { name: "3rd Period", start: "09:25", end: "10:55" },
-];
-
-const ODD_910: Period[] = [
-  { name: "Lunch", start: "11:00", end: "11:35" },
-  { name: "5th Period", start: "11:40", end: "13:10" },
-];
-
-const ODD_1112: Period[] = [
-  { name: "5th Period", start: "11:00", end: "12:30" },
-  { name: "Lunch", start: "12:35", end: "13:10" },
-];
-
-const ODD_AFTER: Period[] = [{ name: "7th Period", start: "13:20", end: "14:50" }];
-
-// --- Wednesday (Even Day, Early Release) ---
-
-const WED_BEFORE: Period[] = [
-  { name: "2nd Period", start: "07:45", end: "09:15" },
-  { name: "4th Core/TOK", start: "09:20", end: "10:15" },
-];
-
-const WED_910: Period[] = [
-  { name: "Lunch", start: "10:20", end: "10:55" },
-  { name: "6th Period", start: "10:55", end: "12:25" },
-];
-
-const WED_1112: Period[] = [
-  { name: "6th Period", start: "10:20", end: "11:50" },
-  { name: "Lunch", start: "11:50", end: "12:25" },
-];
-
-const WED_AFTER: Period[] = [{ name: "8th Period", start: "12:30", end: "14:00" }];
-
-// --- Friday (Even Day) ---
-
-const FRI_BEFORE: Period[] = [
-  { name: "2nd Period", start: "07:45", end: "09:15" },
-  { name: "4th Core/TOK", start: "09:25", end: "10:55" },
-];
-
-const FRI_910: Period[] = [
-  { name: "Lunch", start: "11:00", end: "11:35" },
-  { name: "6th Period", start: "11:40", end: "13:10" },
-];
-
-const FRI_1112: Period[] = [
-  { name: "6th Period", start: "11:00", end: "12:30" },
-  { name: "Lunch", start: "12:35", end: "13:10" },
-];
-
-const FRI_AFTER: Period[] = [{ name: "8th Period", start: "13:20", end: "14:50" }];
+const noSchoolDateSet = new Set(config.calendar.noSchoolDates.map((d) => d.date));
+const earlyDismissalDateSet = new Set(config.calendar.earlyDismissalDates.map((d) => d.date));
 
 // --- Helper Functions ---
 
@@ -145,91 +22,60 @@ export function formatTime(time: string): string {
   return `${hour12}:${m.toString().padStart(2, "0")} ${period}`;
 }
 
-export function getDayType(dayOfWeek: number): DayType | null {
-  switch (dayOfWeek) {
-    case 0:
-    case 6:
-      return null;
-    case 1:
-      return "monday";
-    case 2:
-    case 4:
-      return "odd";
-    case 3:
-    case 5:
-      return "even";
-    default:
-      return null;
-  }
-}
-
-export function getDayTypeLabel(dayType: DayType): string {
-  switch (dayType) {
-    case "monday":
-      return "All Periods";
-    case "odd":
-      return "Odd Day";
-    case "even":
-      return "Even Day";
-  }
-}
 export function formatDateStr(date: Date): string {
   const y = date.getFullYear();
-  const m = (date.getMonth() + 1).toString().padStart(2, "0");
+  const mo = (date.getMonth() + 1).toString().padStart(2, "0");
   const d = date.getDate().toString().padStart(2, "0");
-  return `${y}-${m}-${d}`;
+  return `${y}-${mo}-${d}`;
+}
+
+// --- Day Type Resolution ---
+
+export function getDayType(dayOfWeek: number): string | null {
+  const dt = config.schedule.dayTypes.find((d) => d.weekdays.includes(dayOfWeek));
+  return dt?.id ?? null;
+}
+
+export function getDayTypeLabel(dayType: string): string {
+  const dt = config.schedule.dayTypes.find((d) => d.id === dayType);
+  return dt?.label ?? dayType;
 }
 
 export function isNoSchoolDate(dateStr: string): boolean {
-  return NO_SCHOOL_DATES.includes(dateStr);
+  return noSchoolDateSet.has(dateStr);
 }
 
-export function isEightPeriodOverride(dateStr: string): boolean {
-  return EIGHT_PERIOD_OVERRIDES.includes(dateStr);
+export function isEarlyDismissalDate(dateStr: string): boolean {
+  return earlyDismissalDateSet.has(dateStr);
 }
 
 export function getEffectiveDayOfWeek(date: Date): number {
   const dateStr = formatDateStr(date);
-  if (isEightPeriodOverride(dateStr)) return 1;
+  const override = config.schedule.dayTypeOverrides.find((o) => o.date === dateStr);
+  if (override) {
+    const dt = config.schedule.dayTypes.find((d) => d.id === override.dayTypeId);
+    return dt?.weekdays[0] ?? date.getDay();
+  }
   return date.getDay();
 }
+
+// --- Schedule Building ---
 
 export function getScheduleForDay(
   dayOfWeek: number,
   lunchWave: LunchWave,
 ): Period[] {
-  const is910 = lunchWave === "9/10";
+  const dayTypeId = getDayType(dayOfWeek);
+  if (!dayTypeId) return [];
 
-  switch (dayOfWeek) {
-    case 1:
-      return [
-        ...MONDAY_BEFORE,
-        ...(is910 ? MONDAY_910 : MONDAY_1112),
-        ...MONDAY_AFTER,
-      ];
-    case 2:
-    case 4:
-      return [
-        ...ODD_BEFORE,
-        ...(is910 ? ODD_910 : ODD_1112),
-        ...ODD_AFTER,
-      ];
-    case 3:
-      return [
-        ...WED_BEFORE,
-        ...(is910 ? WED_910 : WED_1112),
-        ...WED_AFTER,
-      ];
-    case 5:
-      return [
-        ...FRI_BEFORE,
-        ...(is910 ? FRI_910 : FRI_1112),
-        ...FRI_AFTER,
-      ];
-    default:
-      return [];
-  }
+  const bells = config.schedule.bells[dayTypeId];
+  if (!bells) return [];
+
+  const wavePeriods = bells.lunchWaves?.[lunchWave] ?? [];
+  return [...bells.shared, ...wavePeriods, ...bells.after];
 }
+
+// --- Period Calculations ---
 
 export function getCurrentPeriod(schedule: Period[], now: Date): Period | null {
   const minutes = now.getHours() * 60 + now.getMinutes();
@@ -296,44 +142,6 @@ export function getSchoolStartCountdown(
   return (startMinutes - nowMinutes) * 60 - nowSeconds;
 }
 
-export function getNextSchoolDay(from: Date): {
-  date: Date;
-  dayName: string;
-  dayType: DayType;
-  label: string;
-  isTomorrow: boolean;
-} | null {
-  const dayNames = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const next = new Date(from);
-  // Check up to 30 days ahead to skip long breaks
-  for (let i = 0; i < 30; i++) {
-    next.setDate(next.getDate() + 1);
-    const dow = next.getDay();
-    if (dow === 0 || dow === 6) continue;
-    const dateStr = formatDateStr(next);
-    if (isNoSchoolDate(dateStr)) continue;
-    const effectiveDow = isEightPeriodOverride(dateStr) ? 1 : dow;
-    const dayType = getDayType(effectiveDow);
-    if (!dayType) continue;
-    return {
-      date: next,
-      dayName: dayNames[dow],
-      dayType,
-      label: getDayTypeLabel(dayType),
-      isTomorrow: i === 0,
-    };
-  }
-  return null;
-}
-
 export function getPassingTimeInfo(
   schedule: Period[],
   now: Date,
@@ -353,5 +161,44 @@ export function getPassingTimeInfo(
     }
   }
 
+  return null;
+}
+
+// --- Navigation ---
+
+export function getNextSchoolDay(from: Date): {
+  date: Date;
+  dayName: string;
+  dayType: string;
+  label: string;
+  isTomorrow: boolean;
+} | null {
+  const dayNames = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const next = new Date(from);
+  for (let i = 0; i < 30; i++) {
+    next.setDate(next.getDate() + 1);
+    const dateStr = formatDateStr(next);
+    if (isNoSchoolDate(dateStr)) continue;
+
+    const effectiveDow = getEffectiveDayOfWeek(next);
+    const dayType = getDayType(effectiveDow);
+    if (!dayType) continue;
+
+    return {
+      date: next,
+      dayName: dayNames[next.getDay()],
+      dayType,
+      label: getDayTypeLabel(dayType),
+      isTomorrow: i === 0,
+    };
+  }
   return null;
 }

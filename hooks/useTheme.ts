@@ -1,8 +1,11 @@
 "use client";
 
 import { useCallback, useSyncExternalStore } from "react";
+import { storageKey } from "@/lib/storage";
 
 type Theme = "light" | "dark";
+
+const THEME_KEY = storageKey("theme");
 
 const listeners = new Set<() => void>();
 
@@ -12,7 +15,7 @@ function subscribe(callback: () => void) {
 }
 
 function getSnapshot(): Theme {
-  return localStorage.getItem("lakerwatch-theme") === "dark" ? "dark" : "light";
+  return localStorage.getItem(THEME_KEY) === "dark" ? "dark" : "light";
 }
 
 function getServerSnapshot(): Theme {
@@ -30,7 +33,7 @@ export function useTheme() {
 
   const toggleTheme = useCallback(() => {
     const next: Theme = theme === "light" ? "dark" : "light";
-    localStorage.setItem("lakerwatch-theme", next);
+    localStorage.setItem(THEME_KEY, next);
     document.documentElement.classList.toggle("dark", next === "dark");
     listeners.forEach((l) => l());
   }, [theme]);

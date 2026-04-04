@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import TodoList from "@/components/TodoList";
 import Link from "next/link";
+import config from "@/school.config";
 
 export const metadata: Metadata = {
   title: "To-Do List",
-  description:
-    "Manage your school tasks and assignments with the LakerWatch to-do list.",
+  description: `Manage your school tasks and assignments with the ${config.school.appName} to-do list.`,
 };
 
 export default function ProductivityTodosPage() {
