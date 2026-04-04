@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-white: #ffffff;
+  --color-bg: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-border: #e2e5ea;
+  --color-navy: #1b2b5e;
+  --color-navy-light: #2d4a8e;
+  --color-red: #b22234;
+  --color-red-light: #d43344;
+  --color-muted: #6b7280;
+  --color-text: #1e293b;
+
+  --color-dark-bg: #0a1628;
+  --color-dark-surface: rgba(20, 30, 52, 0.85);
+  --color-dark-border: rgba(255, 255, 255, 0.12);
+  --color-dark-text: #f1f5f9;
+  --color-dark-muted: #b0bec5;
+
+  --font-display: var(--font-montserrat);
+  --font-body: var(--font-dm-sans);
+  --font-mono: var(--font-jb-mono);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.dark body {
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(178, 34, 52, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(245, 166, 35, 0.05) 0%, transparent 50%),
+    var(--color-dark-bg);
+  color: var(--color-dark-text);
+}
+
+/* Wordle animations */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 50%, 90% { transform: translateX(-4px); }
+  30%, 70% { transform: translateX(4px); }
+}
+
+@keyframes flipIn {
+  0% { transform: rotateX(0deg); }
+  45% { transform: rotateX(90deg); }
+  55% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes scaleIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+

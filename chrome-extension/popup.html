@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=380">
+  <link rel="stylesheet" href="popup.css">
+  <title>LakerWatch</title>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-row">
+      <img src="icons/icon48.png" alt="Logo" class="logo">
+      <span class="logo-text">Laker <span class="logo-accent">Watch</span></span>
+    </div>
+    <button id="wave-toggle" class="wave-toggle" title="Toggle lunch wave">
+      <span id="wave-label-910" class="wave-label">9/10</span>
+      <div class="toggle-track">
+        <div id="toggle-thumb" class="toggle-thumb"></div>
+      </div>
+      <span id="wave-label-1112" class="wave-label">11/12</span>
+    </button>
+  </div>
+
+  <!-- Day Status -->
+  <div id="day-status" class="day-status"></div>
+
+  <!-- Timer -->
+  <div id="timer-section" class="timer-section"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
