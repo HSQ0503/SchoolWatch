@@ -1,87 +1,42 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect } from "react";
 import DayStatusHero from "@/components/DayStatusHero";
 import PeriodCountdown from "@/components/PeriodCountdown";
 import QuickGlanceCards from "@/components/QuickGlanceCards";
-import AnnouncementsFeed from "@/components/AnnouncementsFeed";
 import { useLunchWave } from "@/hooks/useLunchWave";
-import type { Announcement } from "@/lib/announcements";
 import type { SchoolEvent } from "@/lib/events";
 import { formatDateStr } from "@/lib/schedule";
 import { getDevDate } from "@/lib/devTime";
 import config from "@/school.config";
 
+const allEvents: SchoolEvent[] = config.calendar.events.map((e) => ({
+  date: e.date,
+  name: e.name,
+  type: e.type as SchoolEvent["type"],
+  endDate: e.endDate ?? null,
+}));
+
 export default function Dashboard() {
   const { lunchWave } = useLunchWave();
-  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [isEarlyDismissal, setIsEarlyDismissal] = useState(false);
 
-  const lastAnnouncementsJson = useRef("");
-
-  const poll = useCallback(() => {
-    if (config.features.announcements) {
-      fetch("/api/announcements")
-        .then((res) => res.json())
-        .then((data: Announcement[]) => {
-          const json = JSON.stringify(data);
-          if (json !== lastAnnouncementsJson.current) {
-            lastAnnouncementsJson.current = json;
-            setAnnouncements(data);
-          }
-        })
-        .catch(() => {});
-    }
-
-    const today = formatDateStr(getDevDate(new Date()));
-    fetch("/api/events")
-      .then((res) => res.json())
-      .then((events: SchoolEvent[]) => {
-        setIsEarlyDismissal(
-          events.some(
-            (e) =>
-              e.type === "early-dismissal" &&
-              e.date <= today &&
-              (e.endDate ?? e.date) >= today
-          )
-        );
-      })
-      .catch(() => {});
-  }, []);
-
   useEffect(() => {
-    poll();
-    const id = setInterval(poll, 5000);
-    return () => clearInterval(id);
-  }, [poll]);
-
-  const hasAnnouncements = announcements.length > 0;
+    const today = formatDateStr(getDevDate(new Date()));
+    setIsEarlyDismissal(
+      allEvents.some(
+        (e) => e.type === "early-dismissal" && e.date <= today && (e.endDate ?? e.date) >= today
+      )
+    );
+  }, []);
 
   return (
     <div className="flex flex-col gap-8">
       <div className="rounded-2xl border border-border bg-white p-6 pb-8 shadow-sm dark:border-dark-border dark:bg-dark-surface dark:shadow-none">
-        {hasAnnouncements ? (
-          <div className="flex flex-col lg:flex-row lg:gap-8">
-            {/* Left: Clock area — this sets the card's natural height */}
-            <div className="flex flex-col items-center text-center lg:flex-1">
-              <DayStatusHero isEarlyDismissal={isEarlyDismissal} />
-              <PeriodCountdown lunchWave={lunchWave} />
-            </div>
-
-            {/* Divider */}
-            <div className="my-6 border-t border-border dark:border-dark-border lg:my-0 lg:border-l lg:border-t-0" />
-
-            {/* Right: Announcements — scrolls if taller than the clock */}
-            <div className="max-h-[420px] lg:w-[340px] lg:max-h-none lg:shrink-0 lg:self-stretch lg:overflow-hidden">
-              <AnnouncementsFeed announcements={announcements} />
-            </div>
-          </div>
-        ) : (
-          <div className="flex flex-col items-center text-center">
-            <DayStatusHero isEarlyDismissal={isEarlyDismissal} />
-            <PeriodCountdown lunchWave={lunchWave} />
-          </div>
-        )}
+        <div className="flex flex-col items-center text-center">
+          <DayStatusHero isEarlyDismissal={isEarlyDismissal} />
+          <PeriodCountdown lunchWave={lunchWave} />
+        </div>
       </div>
 
       <div>
