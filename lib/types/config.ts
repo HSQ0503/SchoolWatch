@@ -86,7 +86,6 @@ export type SchoolConfig = {
   };
 
   features: {
-    announcements: boolean;
     events: boolean;
     productivity: boolean;
   };

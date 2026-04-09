@@ -141,7 +141,6 @@ const config: SchoolConfig = {
   },
 
   features: {
-    announcements: true,
     events: true,
     productivity: false,   // Disabled — shows how to toggle features off
   },

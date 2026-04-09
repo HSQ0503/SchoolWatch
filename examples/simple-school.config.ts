@@ -113,7 +113,6 @@ const config: SchoolConfig = {
   },
 
   features: {
-    announcements: true,
     events: true,
     productivity: true,
   },

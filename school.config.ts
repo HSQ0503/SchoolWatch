@@ -379,12 +379,10 @@ const config: SchoolConfig = {
   // Toggle optional features on or off. When a feature is off, its
   // navigation link is hidden. The pages still exist but aren't linked.
   //
-  //   announcements — Admin-posted announcements on the dashboard
   //   events        — Calendar page showing school events
   //   productivity  — Pomodoro timer, Wordle, Todos, Randomizer
 
   features: {
-    announcements: true,
     events: true,
     productivity: true,
   },
