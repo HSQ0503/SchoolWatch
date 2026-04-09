@@ -1,10 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useHasMounted } from "@/hooks/useHasMounted";
 import { storageKey } from "@/lib/storage";
 import { filterUpcoming, findNextNoSchool, daysUntil, type SchoolEvent } from "@/lib/events";
+import config from "@/school.config";
+
+const allEvents: SchoolEvent[] = config.calendar.events.map((e) => ({
+  date: e.date,
+  name: e.name,
+  type: e.type as SchoolEvent["type"],
+  endDate: e.endDate ?? null,
+}));
 
 type TodoItem = { text: string; completed: boolean };
 
@@ -41,14 +49,6 @@ function formatDateRange(startDate: string, endDate?: string | null): string {
 export default function QuickGlanceCards() {
   const mounted = useHasMounted();
   const [activeTodos] = useState(readActiveTodos);
-  const [events, setEvents] = useState<SchoolEvent[]>([]);
-
-  useEffect(() => {
-    fetch("/api/events")
-      .then((res) => res.json())
-      .then(setEvents)
-      .catch(() => {});
-  }, []);
 
   const todoCount = activeTodos.length;
   const nextTodo = activeTodos[0];
@@ -62,8 +62,8 @@ export default function QuickGlanceCards() {
     );
   }
 
-  const nextBreak = findNextNoSchool(events);
-  const upcomingEvents = filterUpcoming(events);
+  const nextBreak = findNextNoSchool(allEvents);
+  const upcomingEvents = filterUpcoming(allEvents);
   const nextEvent = upcomingEvents[0];
 
   const eventTarget = nextBreak || nextEvent;
