@@ -1,34 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import DayStatusHero from "@/components/DayStatusHero";
 import PeriodCountdown from "@/components/PeriodCountdown";
 import QuickGlanceCards from "@/components/QuickGlanceCards";
 import { useLunchWave } from "@/hooks/useLunchWave";
-import type { SchoolEvent } from "@/lib/events";
 import { formatDateStr } from "@/lib/schedule";
 import { getDevDate } from "@/lib/devTime";
 import config from "@/school.config";
 
-const allEvents: SchoolEvent[] = config.calendar.events.map((e) => ({
-  date: e.date,
-  name: e.name,
-  type: e.type as SchoolEvent["type"],
-  endDate: e.endDate ?? null,
-}));
+function checkEarlyDismissal(): boolean {
+  const today = formatDateStr(getDevDate(new Date()));
+  return config.calendar.events.some(
+    (e) => e.type === "early-dismissal" && e.date <= today && (e.endDate ?? e.date) >= today
+  );
+}
 
 export default function Dashboard() {
   const { lunchWave } = useLunchWave();
-  const [isEarlyDismissal, setIsEarlyDismissal] = useState(false);
-
-  useEffect(() => {
-    const today = formatDateStr(getDevDate(new Date()));
-    setIsEarlyDismissal(
-      allEvents.some(
-        (e) => e.type === "early-dismissal" && e.date <= today && (e.endDate ?? e.date) >= today
-      )
-    );
-  }, []);
+  const isEarlyDismissal = checkEarlyDismissal();
 
   return (
     <div className="flex flex-col gap-8">
