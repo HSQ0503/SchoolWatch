@@ -1,9 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useHasMounted } from "@/hooks/useHasMounted";
 import { type SchoolEvent, daysUntil, TYPE_STYLES } from "@/lib/events";
 import CalendarView from "@/components/CalendarView";
+import config from "@/school.config";
+
+const allEvents: SchoolEvent[] = config.calendar.events.map((e) => ({
+  date: e.date,
+  name: e.name,
+  type: e.type as SchoolEvent["type"],
+  endDate: e.endDate ?? null,
+}));
 
 function formatEventDate(event: SchoolEvent): string {
   const date = new Date(event.date + "T12:00:00");
@@ -29,22 +37,10 @@ function getMonthYear(dateStr: string): string {
 
 export default function EventsList() {
   const mounted = useHasMounted();
-  const [events, setEvents] = useState<SchoolEvent[]>([]);
-  const [loading, setLoading] = useState(true);
   const [showPast, setShowPast] = useState(false);
   const [viewMode, setViewMode] = useState<"cards" | "calendar">("calendar");
 
-  useEffect(() => {
-    fetch("/api/events")
-      .then((res) => res.json())
-      .then((data) => {
-        setEvents(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
-
-  if (!mounted || loading) {
+  if (!mounted) {
     return (
       <div className="space-y-4">
         {Array.from({ length: 5 }).map((_, i) => (
@@ -59,8 +55,8 @@ export default function EventsList() {
   const todayStr = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, "0")}-${today.getDate().toString().padStart(2, "0")}`;
 
   const filteredEvents = showPast
-    ? events
-    : events.filter((e) => {
+    ? allEvents
+    : allEvents.filter((e) => {
         const compareDate = e.endDate || e.date;
         return compareDate >= todayStr;
       });
@@ -107,7 +103,7 @@ export default function EventsList() {
       </div>
 
       {viewMode === "calendar" ? (
-        <CalendarView events={events} />
+        <CalendarView events={allEvents} />
       ) : (
         <>
           {Object.entries(grouped).map(([month, monthEvents]) => (
@@ -123,7 +119,7 @@ export default function EventsList() {
 
                   return (
                     <div
-                      key={event.id || `${event.date}-${i}`}
+                      key={`${event.date}-${i}`}
                       className={`rounded-xl border p-4 ${style.border} ${style.bg} ${isPast ? "opacity-50" : ""}`}
                     >
                       <div className="flex items-start justify-between gap-4">
