@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
 import { useLunchWave } from "@/hooks/useLunchWave";
 import { useHasMounted } from "@/hooks/useHasMounted";
@@ -85,16 +85,7 @@ function LunchWaveToggle() {
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const { theme, toggleTheme, mounted } = useTheme();
-
-  useEffect(() => {
-    fetch("/api/admin/me")
-      .then((res) => {
-        if (res.ok) setIsAdmin(true);
-      })
-      .catch(() => {});
-  }, []);
 
   const themeButton = mounted ? (
     <button
@@ -153,20 +144,8 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Right — Admin + Toggle + Theme */}
+        {/* Right — Toggle + Theme */}
         <div className="hidden shrink-0 items-center gap-2 md:flex">
-          {isAdmin && (
-            <Link
-              href="/admin"
-              className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                pathname.startsWith("/admin")
-                  ? "bg-red/10 text-red dark:bg-white/10 dark:text-white"
-                  : "text-muted hover:bg-red/5 hover:text-red dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white"
-              }`}
-            >
-              Admin
-            </Link>
-          )}
           <LunchWaveToggle />
           {themeButton}
         </div>
@@ -233,19 +212,6 @@ export default function Navbar() {
               </Link>
             );
           })}
-          {isAdmin && (
-            <Link
-              href="/admin"
-              onClick={() => setMenuOpen(false)}
-              className={`block px-4 py-3 text-sm font-medium transition-colors ${
-                pathname.startsWith("/admin")
-                  ? "bg-red/5 text-red dark:bg-white/10 dark:text-white"
-                  : "text-muted hover:bg-red/5 hover:text-red dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white"
-              }`}
-            >
-              Admin
-            </Link>
-          )}
         </div>
       )}
     </nav>
