@@ -43,7 +43,7 @@ const config: SchoolConfig = {
   // Your school colors. These are used for buttons, badges, accent text,
   // progress rings, and the dark mode background.
   //
-  // Use hex codes like "#003da5" or rgba like "rgba(10, 22, 50, 0.85)".
+  // Use hex codes like "#003da5".
   // Tip: search "[your school] brand colors" to find the exact hex codes.
 
   colors: {
@@ -63,7 +63,7 @@ const config: SchoolConfig = {
       background: "#0a1628",
       heading: "#f1f5f9",
       ring: "#1a5fc7",
-      surface: "rgba(10, 22, 50, 0.85)",
+      surface: "#09132b",
       cardAccent: "#003da5",
       badge: "#003da5",
     },

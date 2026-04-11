@@ -50,7 +50,7 @@ const config: SchoolConfig = {
       background: "#0a1628",
       heading: "#f1f5f9",
       ring: "#e6a020",
-      surface: "rgba(10, 22, 40, 0.85)",
+      surface: "#091322",
       cardAccent: "#cc8400",
       badge: "#cc8400",
     },
