@@ -143,8 +143,8 @@ export default function PeriodCountdown({
           >
             <defs>
               <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="var(--color-accent-light)" />
-                <stop offset="100%" stopColor="var(--color-accent)" />
+                <stop offset="0%" stopColor="var(--color-red-light)" />
+                <stop offset="100%" stopColor="var(--color-red)" />
               </linearGradient>
             </defs>
             <circle

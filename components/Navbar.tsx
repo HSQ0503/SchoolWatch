@@ -118,7 +118,7 @@ export default function Navbar() {
             height={36}
             className="rounded"
           />
-          <span className="text-red dark:text-white">{config.school.appName}</span>
+          <span className="text-navy dark:text-white">{config.school.appName}</span>
         </Link>
 
         {/* Center — Nav links */}

@@ -88,7 +88,7 @@ export default function DayStatusHero({ isEarlyDismissal = false }: { isEarlyDis
 
   return (
     <div className="py-4 text-center">
-      <p className="font-display text-4xl font-extrabold text-red dark:text-dark-text md:text-5xl lg:text-6xl">
+      <p className="font-display text-4xl font-extrabold text-navy dark:text-dark-text md:text-5xl lg:text-6xl">
         It&apos;s {dayName}
       </p>
       <div className="mt-2 flex items-center justify-center gap-3">

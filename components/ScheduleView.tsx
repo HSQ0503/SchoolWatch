@@ -146,7 +146,7 @@ export default function ScheduleView() {
                   )}
                   <div>
                     <p
-                      className={`font-display font-semibold ${isCurrent ? "text-red" : "text-text dark:text-dark-text"}`}
+                      className={`font-display font-semibold ${isCurrent ? "text-navy" : "text-text dark:text-dark-text"}`}
                     >
                       {period.name}
                     </p>
