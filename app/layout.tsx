@@ -62,6 +62,10 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  icons: {
+    icon: school.logoPath,
+    apple: school.logoPath,
+  },
   other: {
     "geo.region": `${location.country}-${location.stateCode}`,
     "geo.placename": `${location.city}, ${location.state}`,

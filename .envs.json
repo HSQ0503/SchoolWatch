@@ -1,0 +1,8 @@
+{
+  "projectId": "prj_dda076dd",
+  "projectName": "Schoolwatch",
+  "environments": {
+    "development": ".env"
+  },
+  "ignore": []
+}
