@@ -9,7 +9,7 @@ const TOOLS = [
     icon: "⏱",
     href: "/productivity/pomodoro",
     external: false,
-    accent: "border-l-red dark:border-l-red-light",
+    accent: "border-l-card-accent dark:border-l-dark-card-accent",
   },
   {
     name: "Citations",
@@ -17,7 +17,7 @@ const TOOLS = [
     icon: "📚",
     href: "https://www.mybib.com/",
     external: true,
-    accent: "border-l-red",
+    accent: "border-l-card-accent",
   },
   {
     name: "Group Randomizer",
@@ -25,7 +25,7 @@ const TOOLS = [
     icon: "🎲",
     href: "/productivity/randomizer",
     external: false,
-    accent: "border-l-red-light dark:border-l-red-light",
+    accent: "border-l-card-accent/70 dark:border-l-dark-card-accent",
   },
   {
     name: "Wordle",
@@ -41,7 +41,7 @@ const TOOLS = [
     icon: "✅",
     href: "/productivity/todos",
     external: false,
-    accent: "border-l-red dark:border-l-red-light",
+    accent: "border-l-card-accent dark:border-l-dark-card-accent",
   },
 ];
 
@@ -70,7 +70,7 @@ export default function ProductivityPage() {
                   </p>
                 </div>
               </div>
-              <p className="mt-3 text-sm font-medium text-red dark:text-red-light">
+              <p className="mt-3 text-sm font-medium text-card-accent dark:text-dark-card-accent">
                 {tool.external ? "External ↗" : "Open →"}
               </p>
             </>
@@ -83,7 +83,7 @@ export default function ProductivityPage() {
                 href={tool.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`rounded-xl border border-border border-l-[3px] ${tool.accent} bg-white p-5 transition-colors hover:bg-bg dark:border-dark-border dark:bg-dark-surface dark:hover:bg-white/10`}
+                className={`rounded-xl border border-border border-l-[3px] ${tool.accent} bg-surface p-5 transition-colors hover:bg-bg dark:border-dark-border dark:bg-dark-surface dark:hover:bg-white/10`}
               >
                 {content}
               </a>
@@ -94,7 +94,7 @@ export default function ProductivityPage() {
             <Link
               key={tool.name}
               href={tool.href}
-              className={`rounded-xl border border-border border-l-[3px] ${tool.accent} bg-white p-5 transition-colors hover:bg-bg dark:border-dark-border dark:bg-dark-surface dark:hover:bg-white/10`}
+              className={`rounded-xl border border-border border-l-[3px] ${tool.accent} bg-surface p-5 transition-colors hover:bg-bg dark:border-dark-border dark:bg-dark-surface dark:hover:bg-white/10`}
             >
               {content}
             </Link>

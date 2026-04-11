@@ -42,28 +42,28 @@ export const TYPE_STYLES: Record<
   { border: string; bg: string; dot: string }
 > = {
   "no-school": {
-    border: "border-red/20 dark:border-red/15",
-    bg: "bg-red/5 dark:bg-red/10",
-    dot: "bg-red",
+    border: "border-card-accent/20 dark:border-dark-card-accent/15",
+    bg: "bg-card-accent/5 dark:bg-dark-card-accent/10",
+    dot: "bg-badge",
   },
   "early-dismissal": {
-    border: "border-red/15 dark:border-red/10",
-    bg: "bg-red/5 dark:bg-red/10",
-    dot: "bg-red-light",
+    border: "border-card-accent/15 dark:border-dark-card-accent/10",
+    bg: "bg-card-accent/5 dark:bg-dark-card-accent/10",
+    dot: "bg-badge/70",
   },
   event: {
     border: "border-border dark:border-dark-border",
-    bg: "bg-white dark:bg-dark-surface",
-    dot: "bg-red dark:bg-red-light",
+    bg: "bg-surface dark:bg-dark-surface",
+    dot: "bg-badge dark:bg-dark-badge",
   },
   exam: {
-    border: "border-red/20 dark:border-red/15",
-    bg: "bg-red/5 dark:bg-red/10",
-    dot: "bg-red",
+    border: "border-card-accent/20 dark:border-dark-card-accent/15",
+    bg: "bg-card-accent/5 dark:bg-dark-card-accent/10",
+    dot: "bg-badge",
   },
   deadline: {
-    border: "border-red/15 dark:border-red/10",
-    bg: "bg-red/5 dark:bg-red/10",
-    dot: "bg-red-light",
+    border: "border-card-accent/15 dark:border-dark-card-accent/10",
+    bg: "bg-card-accent/5 dark:bg-dark-card-accent/10",
+    dot: "bg-badge/70",
   },
 };

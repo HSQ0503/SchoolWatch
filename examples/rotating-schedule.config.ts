@@ -35,12 +35,26 @@ const config: SchoolConfig = {
   },
 
   colors: {
-    primary: "#1b2b5e",
-    primaryLight: "#2d4a8e",
-    accent: "#b22234",
-    accentLight: "#d43344",
-    darkBg: "#0a1628",
-    darkSurface: "rgba(20, 30, 52, 0.85)",
+    light: {
+      navbar: "#ffffff",
+      navText: "#1b2b5e",
+      background: "#f5f7fa",
+      heading: "#1b2b5e",
+      ring: "#b22234",
+      surface: "#ffffff",
+      cardAccent: "#b22234",
+      badge: "#b22234",
+    },
+    dark: {
+      navbar: "#0a1628",
+      navText: "#ffffff",
+      background: "#0a1628",
+      heading: "#f1f5f9",
+      ring: "#d43344",
+      surface: "rgba(20, 30, 52, 0.85)",
+      cardAccent: "#b22234",
+      badge: "#b22234",
+    },
   },
 
   storagePrefix: "lakerwatch",

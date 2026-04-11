@@ -34,12 +34,26 @@ const config: SchoolConfig = {
   },
 
   colors: {
-    primary: "#003366",
-    primaryLight: "#1a5599",
-    accent: "#cc8400",
-    accentLight: "#e6a020",
-    darkBg: "#0a1628",
-    darkSurface: "rgba(10, 22, 40, 0.85)",
+    light: {
+      navbar: "#ffffff",
+      navText: "#003366",
+      background: "#f5f7fa",
+      heading: "#003366",
+      ring: "#cc8400",
+      surface: "#ffffff",
+      cardAccent: "#cc8400",
+      badge: "#cc8400",
+    },
+    dark: {
+      navbar: "#0a1628",
+      navText: "#ffffff",
+      background: "#0a1628",
+      heading: "#f1f5f9",
+      ring: "#e6a020",
+      surface: "rgba(10, 22, 40, 0.85)",
+      cardAccent: "#cc8400",
+      badge: "#cc8400",
+    },
   },
 
   storagePrefix: "eaglewatch",

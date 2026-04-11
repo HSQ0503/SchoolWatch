@@ -33,12 +33,26 @@ const config: SchoolConfig = {
   },
 
   colors: {
-    primary: "#1a3c6e",
-    primaryLight: "#2a5c9e",
-    accent: "#c8102e",
-    accentLight: "#e0334a",
-    darkBg: "#0c1a2e",
-    darkSurface: "rgba(12, 26, 46, 0.85)",
+    light: {
+      navbar: "#ffffff",
+      navText: "#1a3c6e",
+      background: "#f5f7fa",
+      heading: "#1a3c6e",
+      ring: "#c8102e",
+      surface: "#ffffff",
+      cardAccent: "#c8102e",
+      badge: "#c8102e",
+    },
+    dark: {
+      navbar: "#0c1a2e",
+      navText: "#ffffff",
+      background: "#0c1a2e",
+      heading: "#f1f5f9",
+      ring: "#e0334a",
+      surface: "rgba(12, 26, 46, 0.85)",
+      cardAccent: "#c8102e",
+      badge: "#c8102e",
+    },
   },
 
   storagePrefix: "lionwatch",

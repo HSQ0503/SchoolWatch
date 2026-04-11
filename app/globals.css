@@ -4,18 +4,26 @@
 
 @theme inline {
   --color-white: #ffffff;
-  --color-bg: #f5f7fa;
-  --color-surface: #ffffff;
+  --color-navbar: var(--school-light-navbar);
+  --color-nav-text: var(--school-light-nav-text);
+  --color-bg: var(--school-light-background);
+  --color-heading: var(--school-light-heading);
+  --color-ring: var(--school-light-ring);
+  --color-surface: var(--school-light-surface);
+  --color-card-accent: var(--school-light-card-accent);
+  --color-badge: var(--school-light-badge);
   --color-border: #e2e5ea;
-  --color-navy: var(--school-primary);
-  --color-navy-light: var(--school-primary-light);
-  --color-red: var(--school-accent);
-  --color-red-light: var(--school-accent-light);
   --color-muted: #6b7280;
   --color-text: #1e293b;
 
-  --color-dark-bg: var(--school-dark-bg);
+  --color-dark-navbar: var(--school-dark-navbar);
+  --color-dark-nav-text: var(--school-dark-nav-text);
+  --color-dark-bg: var(--school-dark-background);
+  --color-dark-heading: var(--school-dark-heading);
+  --color-dark-ring: var(--school-dark-ring);
   --color-dark-surface: var(--school-dark-surface);
+  --color-dark-card-accent: var(--school-dark-card-accent);
+  --color-dark-badge: var(--school-dark-badge);
   --color-dark-border: rgba(255, 255, 255, 0.12);
   --color-dark-text: #f1f5f9;
   --color-dark-muted: #b0bec5;
@@ -32,7 +40,7 @@ body {
 
 .dark body {
   background:
-    radial-gradient(ellipse at 20% 0%, color-mix(in srgb, var(--color-accent) 8%, transparent) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 0%, color-mix(in srgb, var(--color-dark-card-accent) 8%, transparent) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 100%, rgba(245, 166, 35, 0.05) 0%, transparent 50%),
     var(--color-dark-bg);
   color: var(--color-dark-text);

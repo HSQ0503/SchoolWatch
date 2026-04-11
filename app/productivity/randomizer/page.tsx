@@ -233,7 +233,7 @@ export default function RandomizerPage() {
     <div>
       <Link
         href="/productivity"
-        className="mb-8 inline-block text-sm text-muted transition-colors hover:text-red dark:text-dark-muted dark:hover:text-dark-text"
+        className="mb-8 inline-block text-sm text-muted transition-colors hover:text-card-accent dark:text-dark-muted dark:hover:text-dark-text"
       >
         ← Back to Productivity
       </Link>
@@ -250,7 +250,7 @@ export default function RandomizerPage() {
             onClick={() => setTab(t)}
             className={`flex-1 rounded-md py-2 text-sm font-medium transition-colors ${
               tab === t
-                ? "bg-red text-white"
+                ? "bg-badge text-white"
                 : "text-muted hover:text-text dark:text-dark-muted dark:hover:text-dark-text"
             }`}
           >
@@ -273,11 +273,11 @@ export default function RandomizerPage() {
             }}
             placeholder="Enter names (one per line or comma-separated)"
             rows={2}
-            className="flex-1 resize-none rounded-xl border border-border bg-white px-4 py-2.5 text-text placeholder:text-muted/60 focus:border-red/40 focus:outline-none dark:border-dark-border dark:bg-dark-surface dark:text-dark-text dark:placeholder:text-dark-muted/60"
+            className="flex-1 resize-none rounded-xl border border-border bg-white px-4 py-2.5 text-text placeholder:text-muted/60 focus:border-card-accent/40 focus:outline-none dark:border-dark-border dark:bg-dark-surface dark:text-dark-text dark:placeholder:text-dark-muted/60"
           />
           <button
             onClick={addNames}
-            className="self-end rounded-xl bg-red px-4 py-2.5 font-medium text-white transition-colors hover:bg-red-light"
+            className="self-end rounded-xl bg-badge px-4 py-2.5 font-medium text-white transition-colors hover:bg-badge/70"
           >
             Add
           </button>
@@ -294,7 +294,7 @@ export default function RandomizerPage() {
                 {name}
                 <button
                   onClick={() => removeName(i)}
-                  className="ml-0.5 text-muted/60 hover:text-red"
+                  className="ml-0.5 text-muted/60 hover:text-card-accent"
                 >
                   ×
                 </button>
@@ -302,7 +302,7 @@ export default function RandomizerPage() {
             ))}
             <button
               onClick={clearAll}
-              className="text-xs text-muted transition-colors hover:text-red dark:text-dark-muted"
+              className="text-xs text-muted transition-colors hover:text-card-accent dark:text-dark-muted"
             >
               Clear all
             </button>
@@ -318,7 +318,7 @@ export default function RandomizerPage() {
               {/* Pointer */}
               <div className="relative">
                 <div className="absolute -right-2 top-1/2 z-10 -translate-y-1/2">
-                  <div className="h-0 w-0 border-y-[10px] border-r-[18px] border-y-transparent border-r-red" />
+                  <div className="h-0 w-0 border-y-[10px] border-r-[18px] border-y-transparent border-r-badge" />
                 </div>
                 <canvas
                   ref={canvasRef}
@@ -332,7 +332,7 @@ export default function RandomizerPage() {
                 className={`mt-6 rounded-xl px-10 py-3 text-lg font-bold text-white transition-colors ${
                   spinning
                     ? "cursor-not-allowed bg-muted"
-                    : "bg-red hover:bg-red-light"
+                    : "bg-badge hover:bg-badge/70"
                 }`}
               >
                 {spinning ? "Spinning..." : "SPIN"}
@@ -370,11 +370,11 @@ export default function RandomizerPage() {
                   max={Math.min(10, names.length)}
                   value={numGroups}
                   onChange={(e) => setNumGroups(Math.max(2, Math.min(10, parseInt(e.target.value) || 2)))}
-                  className="w-20 rounded-lg border border-border bg-white px-3 py-2 text-center text-text focus:border-red/40 focus:outline-none dark:border-dark-border dark:bg-dark-surface dark:text-dark-text"
+                  className="w-20 rounded-lg border border-border bg-white px-3 py-2 text-center text-text focus:border-card-accent/40 focus:outline-none dark:border-dark-border dark:bg-dark-surface dark:text-dark-text"
                 />
                 <button
                   onClick={makeGroups}
-                  className="rounded-xl bg-red px-6 py-2 font-medium text-white transition-colors hover:bg-red-light"
+                  className="rounded-xl bg-badge px-6 py-2 font-medium text-white transition-colors hover:bg-badge/70"
                 >
                   {groups ? "Re-shuffle" : "Randomize Groups"}
                 </button>

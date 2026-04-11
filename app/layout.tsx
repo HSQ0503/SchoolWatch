@@ -78,12 +78,22 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       style={{
-        "--school-primary": config.colors.primary,
-        "--school-primary-light": config.colors.primaryLight,
-        "--school-accent": config.colors.accent,
-        "--school-accent-light": config.colors.accentLight,
-        "--school-dark-bg": config.colors.darkBg,
-        "--school-dark-surface": config.colors.darkSurface,
+        "--school-light-navbar": config.colors.light.navbar,
+        "--school-light-nav-text": config.colors.light.navText,
+        "--school-light-background": config.colors.light.background,
+        "--school-light-heading": config.colors.light.heading,
+        "--school-light-ring": config.colors.light.ring,
+        "--school-light-surface": config.colors.light.surface,
+        "--school-light-card-accent": config.colors.light.cardAccent,
+        "--school-light-badge": config.colors.light.badge,
+        "--school-dark-navbar": config.colors.dark.navbar,
+        "--school-dark-nav-text": config.colors.dark.navText,
+        "--school-dark-background": config.colors.dark.background,
+        "--school-dark-heading": config.colors.dark.heading,
+        "--school-dark-ring": config.colors.dark.ring,
+        "--school-dark-surface": config.colors.dark.surface,
+        "--school-dark-card-accent": config.colors.dark.cardAccent,
+        "--school-dark-badge": config.colors.dark.badge,
       } as React.CSSProperties}
     >
       <head>

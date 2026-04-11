@@ -337,7 +337,7 @@ export default function WordlePage() {
     <div className="flex flex-col items-center">
       <Link
         href="/productivity"
-        className="mb-6 self-start text-sm text-muted transition-colors hover:text-red dark:text-dark-muted dark:hover:text-dark-text"
+        className="mb-6 self-start text-sm text-muted transition-colors hover:text-card-accent dark:text-dark-muted dark:hover:text-dark-text"
       >
         ← Back to Productivity
       </Link>
@@ -390,7 +390,7 @@ export default function WordlePage() {
             </p>
           ) : (
             <p className="mb-1 text-xl font-bold text-text dark:text-dark-text">
-              The word was: <span className="text-red">{answer}</span>
+              The word was: <span className="text-card-accent">{answer}</span>
             </p>
           )}
           <p className="mb-3 text-sm text-muted dark:text-dark-muted">
@@ -399,7 +399,7 @@ export default function WordlePage() {
           </p>
           <button
             onClick={shareResult}
-            className="rounded-xl bg-red px-6 py-2.5 font-medium text-white transition-colors hover:bg-red-light"
+            className="rounded-xl bg-badge px-6 py-2.5 font-medium text-white transition-colors hover:bg-badge/70"
           >
             Share
           </button>

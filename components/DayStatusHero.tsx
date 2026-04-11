@@ -24,8 +24,8 @@ const DAY_NAMES = [
 
 const BADGE_PALETTE = [
   "border-border bg-bg text-text dark:border-dark-border dark:bg-dark-surface dark:text-dark-text",
-  "border-red/20 bg-red-light text-white",
-  "border-red/20 bg-red text-white",
+  "border-badge/20 bg-badge/70 text-white",
+  "border-badge/20 bg-badge text-white",
 ];
 
 const BADGE_COLORS: Record<string, string> = Object.fromEntries(
@@ -88,7 +88,7 @@ export default function DayStatusHero({ isEarlyDismissal = false }: { isEarlyDis
 
   return (
     <div className="py-4 text-center">
-      <p className="font-display text-4xl font-extrabold text-navy dark:text-dark-text md:text-5xl lg:text-6xl">
+      <p className="font-display text-4xl font-extrabold text-heading dark:text-dark-text md:text-5xl lg:text-6xl">
         It&apos;s {dayName}
       </p>
       <div className="mt-2 flex items-center justify-center gap-3">
@@ -98,7 +98,7 @@ export default function DayStatusHero({ isEarlyDismissal = false }: { isEarlyDis
           {dayTypeLabel}
         </span>
         {isEarlyDismissal && (
-          <span className="inline-block rounded-full border border-red/20 bg-red px-4 py-1.5 text-base font-bold text-white">
+          <span className="inline-block rounded-full border border-badge/20 bg-badge px-4 py-1.5 text-base font-bold text-white">
             Early Release
           </span>
         )}

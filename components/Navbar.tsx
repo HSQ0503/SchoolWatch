@@ -55,16 +55,16 @@ function LunchWaveToggle() {
     return (
       <button
         onClick={toggle}
-        className="group flex items-center gap-2 rounded-full border border-border bg-bg px-2.5 py-1 text-xs font-medium text-muted transition-colors hover:border-red/30 hover:text-text dark:border-dark-border dark:bg-dark-surface dark:text-dark-muted dark:hover:border-red/40 dark:hover:text-dark-text"
+        className="group flex items-center gap-2 rounded-full border border-border bg-bg px-2.5 py-1 text-xs font-medium text-muted transition-colors hover:border-card-accent/30 hover:text-text dark:border-dark-border dark:bg-dark-surface dark:text-dark-muted dark:hover:border-card-accent/40 dark:hover:text-dark-text"
         title={`Lunch: ${lunchWave}`}
       >
-        <span className={`transition-colors ${!isSecond ? "font-bold text-red" : ""}`}>{options[0].id}</span>
-        <div className="relative h-4 w-8 rounded-full bg-border transition-colors group-hover:bg-red/20 dark:bg-white/15 dark:group-hover:bg-red/30">
+        <span className={`transition-colors ${!isSecond ? "font-bold text-card-accent" : ""}`}>{options[0].id}</span>
+        <div className="relative h-4 w-8 rounded-full bg-border transition-colors group-hover:bg-card-accent/20 dark:bg-white/15 dark:group-hover:bg-card-accent/30">
           <div
-            className={`absolute top-0.5 h-3 w-3 rounded-full bg-red shadow-sm transition-all ${isSecond ? "left-[18px]" : "left-0.5"}`}
+            className={`absolute top-0.5 h-3 w-3 rounded-full bg-card-accent shadow-sm transition-all ${isSecond ? "left-[18px]" : "left-0.5"}`}
           />
         </div>
-        <span className={`transition-colors ${isSecond ? "font-bold text-red" : ""}`}>{options[1].id}</span>
+        <span className={`transition-colors ${isSecond ? "font-bold text-card-accent" : ""}`}>{options[1].id}</span>
       </button>
     );
   }
@@ -74,7 +74,7 @@ function LunchWaveToggle() {
   return (
     <button
       onClick={toggle}
-      className="rounded-full border border-border bg-bg px-2.5 py-1 text-xs font-bold text-red transition-colors hover:border-red/30 dark:border-dark-border dark:bg-dark-surface dark:text-red-light dark:hover:border-red/40"
+      className="rounded-full border border-border bg-bg px-2.5 py-1 text-xs font-bold text-card-accent transition-colors hover:border-card-accent/30 dark:border-dark-border dark:bg-dark-surface dark:text-dark-card-accent dark:hover:border-card-accent/40"
       title={`Lunch: ${current?.label ?? lunchWave}`}
     >
       {current?.id ?? lunchWave}
@@ -90,7 +90,7 @@ export default function Navbar() {
   const themeButton = mounted ? (
     <button
       onClick={toggleTheme}
-      className="rounded-lg p-2 text-muted transition-colors hover:bg-red/5 hover:text-red dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white"
+      className="rounded-lg p-2 text-muted transition-colors hover:bg-card-accent/5 hover:text-card-accent dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white"
       title={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
     >
       {theme === "light" ? (
@@ -104,7 +104,7 @@ export default function Navbar() {
   );
 
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 border-b border-border bg-white shadow-sm dark:border-white/10 dark:bg-dark-bg">
+    <nav className="fixed left-0 right-0 top-0 z-50 border-b border-border bg-navbar shadow-sm dark:border-white/10 dark:bg-dark-navbar">
       <div className="flex h-16 items-center px-4">
         {/* Left — Logo */}
         <Link
@@ -118,7 +118,7 @@ export default function Navbar() {
             height={36}
             className="rounded"
           />
-          <span className="text-navy dark:text-white">{config.school.appName}</span>
+          <span className="text-nav-text dark:text-white">{config.school.appName}</span>
         </Link>
 
         {/* Center — Nav links */}
@@ -134,8 +134,8 @@ export default function Navbar() {
                 href={link.href}
                 className={`text-sm font-medium transition-colors ${
                   isActive
-                    ? "text-red dark:text-white"
-                    : "text-muted hover:text-red dark:text-white/60 dark:hover:text-white"
+                    ? "text-nav-text dark:text-white"
+                    : "text-muted hover:text-nav-text dark:text-white/60 dark:hover:text-white"
                 }`}
               >
                 {link.label}
@@ -154,7 +154,7 @@ export default function Navbar() {
           <LunchWaveToggle />
           {themeButton}
           <button
-            className="p-2 text-muted hover:text-red dark:text-white/60 dark:hover:text-white"
+            className="p-2 text-muted hover:text-nav-text dark:text-white/60 dark:hover:text-white"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? (
@@ -191,7 +191,7 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-border bg-white dark:border-white/10 dark:bg-dark-bg md:hidden">
+        <div className="border-t border-border bg-navbar dark:border-white/10 dark:bg-dark-navbar md:hidden">
           {NAV_LINKS.map((link) => {
             const isActive =
               link.href === "/"
@@ -204,8 +204,8 @@ export default function Navbar() {
                 onClick={() => setMenuOpen(false)}
                 className={`block px-4 py-3 text-sm font-medium transition-colors ${
                   isActive
-                    ? "bg-red/5 text-red dark:bg-white/10 dark:text-white"
-                    : "text-muted hover:bg-red/5 hover:text-red dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white"
+                    ? "bg-card-accent/5 text-nav-text dark:bg-white/10 dark:text-white"
+                    : "text-muted hover:bg-card-accent/5 hover:text-nav-text dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white"
                 }`}
               >
                 {link.label}

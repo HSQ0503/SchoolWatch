@@ -24,8 +24,8 @@ import config from "@/school.config";
 
 const BADGE_PALETTE = [
   "border-border bg-bg text-text dark:border-dark-border dark:bg-dark-surface dark:text-dark-text",
-  "border-red/20 bg-red-light text-white",
-  "border-red/20 bg-red text-white",
+  "border-badge/20 bg-badge/70 text-white",
+  "border-badge/20 bg-badge text-white",
 ];
 
 const BADGE_COLORS: Record<string, string> = Object.fromEntries(
@@ -143,8 +143,8 @@ export default function PeriodCountdown({
           >
             <defs>
               <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="var(--color-red-light)" />
-                <stop offset="100%" stopColor="var(--color-red)" />
+                <stop offset="0%" stopColor="var(--color-ring)" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="var(--color-ring)" />
               </linearGradient>
             </defs>
             <circle
@@ -170,14 +170,14 @@ export default function PeriodCountdown({
               }}
             />
           </svg>
-          <p className={`font-mono font-bold tabular-nums text-red dark:text-white ${remaining >= 3600 ? "text-5xl md:text-6xl lg:text-7xl" : "text-6xl md:text-7xl lg:text-8xl"}`}>
+          <p className={`font-mono font-bold tabular-nums text-ring dark:text-white ${remaining >= 3600 ? "text-5xl md:text-6xl lg:text-7xl" : "text-6xl md:text-7xl lg:text-8xl"}`}>
             {formatCountdown(Math.max(0, remaining))}
           </p>
         </div>
         {nextPeriod && (
           <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-border bg-bg px-4 py-2 dark:border-dark-border dark:bg-white/5">
             <span className="text-sm font-medium text-muted dark:text-dark-muted">Next up</span>
-            <span className="h-1 w-1 rounded-full bg-red" />
+            <span className="h-1 w-1 rounded-full bg-card-accent" />
             <span className="text-sm font-semibold text-text dark:text-dark-text">{nextPeriod.name}</span>
             <span className="font-mono text-sm tabular-nums text-muted dark:text-dark-muted">
               {formatTime(nextPeriod.start)}
@@ -200,7 +200,7 @@ export default function PeriodCountdown({
           </span>{" "}
           starts in
         </p>
-        <p className="font-mono text-6xl font-bold tabular-nums text-red md:text-7xl lg:text-8xl">
+        <p className="font-mono text-6xl font-bold tabular-nums text-ring md:text-7xl lg:text-8xl">
           {formatCountdown(Math.max(0, passingInfo.secondsUntil))}
         </p>
       </div>

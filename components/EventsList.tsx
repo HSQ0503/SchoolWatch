@@ -79,19 +79,19 @@ export default function EventsList() {
           {viewMode === "cards" && (
             <button
               onClick={() => setShowPast(!showPast)}
-              className="text-sm text-muted transition-colors hover:text-red dark:text-dark-muted dark:hover:text-dark-text"
+              className="text-sm text-muted transition-colors hover:text-card-accent dark:text-dark-muted dark:hover:text-dark-text"
             >
               {showPast ? "Hide past events" : "Show past events"}
             </button>
           )}
-          <div className="flex gap-1 rounded-lg border border-border bg-white p-1 dark:border-dark-border dark:bg-dark-surface">
+          <div className="flex gap-1 rounded-lg border border-border bg-surface p-1 dark:border-dark-border dark:bg-dark-surface">
             {(["cards", "calendar"] as const).map((mode) => (
               <button
                 key={mode}
                 onClick={() => setViewMode(mode)}
                 className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
                   viewMode === mode
-                    ? "bg-red text-white"
+                    ? "bg-badge text-white"
                     : "text-muted hover:text-text dark:text-dark-muted dark:hover:text-dark-text"
                 }`}
               >

@@ -16,9 +16,9 @@ type Filter = "all" | "active" | "completed";
 
 const CATEGORIES = [
   { value: "general", label: "General", color: "bg-gray-400" },
-  { value: "homework", label: "Homework", color: "bg-red" },
-  { value: "project", label: "Project", color: "bg-red-light" },
-  { value: "test", label: "Test/Quiz", color: "bg-red" },
+  { value: "homework", label: "Homework", color: "bg-badge" },
+  { value: "project", label: "Project", color: "bg-badge/70" },
+  { value: "test", label: "Test/Quiz", color: "bg-badge" },
   { value: "personal", label: "Personal", color: "bg-green-500" },
 ];
 
@@ -110,12 +110,12 @@ export default function TodoList() {
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && addTodo()}
           placeholder="Add a task..."
-          className="flex-1 rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-surface px-4 py-2.5 text-text dark:text-dark-text placeholder:text-muted/60 dark:placeholder:text-dark-muted/60 focus:border-red/40 focus:outline-none"
+          className="flex-1 rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-surface px-4 py-2.5 text-text dark:text-dark-text placeholder:text-muted/60 dark:placeholder:text-dark-muted/60 focus:border-card-accent/40 focus:outline-none"
         />
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="appearance-none rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-surface bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23636e7b%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:16px] bg-[right_10px_center] bg-no-repeat py-2.5 pl-3 pr-8 text-text dark:text-dark-text focus:border-red/40 focus:outline-none"
+          className="appearance-none rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-surface bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23636e7b%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:16px] bg-[right_10px_center] bg-no-repeat py-2.5 pl-3 pr-8 text-text dark:text-dark-text focus:border-card-accent/40 focus:outline-none"
         >
           {CATEGORIES.map((c) => (
             <option key={c.value} value={c.value}>
@@ -125,7 +125,7 @@ export default function TodoList() {
         </select>
         <button
           onClick={addTodo}
-          className="rounded-xl bg-red px-4 py-2.5 font-medium text-white transition-colors hover:bg-red-light"
+          className="rounded-xl bg-badge px-4 py-2.5 font-medium text-white transition-colors hover:bg-badge/70"
         >
           Add
         </button>
@@ -139,7 +139,7 @@ export default function TodoList() {
             onClick={() => setFilter(f)}
             className={`flex-1 rounded-md py-2 text-sm font-medium capitalize transition-colors ${
               filter === f
-                ? "bg-red text-white"
+                ? "bg-badge text-white"
                 : "text-muted dark:text-dark-muted hover:text-text dark:hover:text-dark-text"
             }`}
           >
@@ -159,8 +159,8 @@ export default function TodoList() {
               onClick={() => toggleTodo(todo.id)}
               className={`flex h-5 w-5 items-center justify-center rounded-md border-2 transition-colors ${
                 todo.completed
-                  ? "border-red bg-red text-white"
-                  : "border-border dark:border-dark-border hover:border-red"
+                  ? "border-badge bg-badge text-white"
+                  : "border-border dark:border-dark-border hover:border-badge"
               }`}
             >
               {todo.completed && (
@@ -189,7 +189,7 @@ export default function TodoList() {
             </span>
             <button
               onClick={() => deleteTodo(todo.id)}
-              className="text-muted/40 transition-colors hover:text-red"
+              className="text-muted/40 transition-colors hover:text-card-accent"
             >
               <svg
                 className="h-4 w-4"
@@ -229,7 +229,7 @@ export default function TodoList() {
           {todos.some((t) => t.completed) && (
             <button
               onClick={clearCompleted}
-              className="transition-colors hover:text-red dark:hover:text-dark-text"
+              className="transition-colors hover:text-card-accent dark:hover:text-dark-text"
             >
               Clear completed
             </button>

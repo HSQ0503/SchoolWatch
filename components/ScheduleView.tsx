@@ -82,8 +82,8 @@ export default function ScheduleView() {
                 onClick={() => setWave(opt.id)}
                 className={`px-4 py-2 text-sm font-medium transition-colors ${
                   lunchWave === opt.id
-                    ? "bg-red text-white"
-                    : "bg-white dark:bg-dark-surface text-muted dark:text-dark-muted hover:text-text dark:hover:text-dark-text"
+                    ? "bg-badge text-white"
+                    : "bg-surface dark:bg-dark-surface text-muted dark:text-dark-muted hover:text-text dark:hover:text-dark-text"
                 }`}
               >
                 {opt.label}
@@ -94,16 +94,16 @@ export default function ScheduleView() {
       )}
 
       {/* Day tabs */}
-      <div className="flex gap-1 rounded-lg border border-border dark:border-dark-border bg-white dark:bg-dark-surface p-1">
+      <div className="flex gap-1 rounded-lg border border-border dark:border-dark-border bg-surface dark:bg-dark-surface p-1">
         {DAY_TABS.map((tab) => (
           <button
             key={tab.dayOfWeek}
             onClick={() => setSelectedDay(tab.dayOfWeek)}
             className={`flex-1 rounded-md py-2 text-sm font-medium transition-colors ${
               selectedDay === tab.dayOfWeek
-                ? "bg-red text-white"
+                ? "bg-badge text-white"
                 : "text-muted dark:text-dark-muted hover:text-text dark:hover:text-dark-text"
-            } ${isToday && tab.dayOfWeek === now.getDay() ? "ring-1 ring-red/30" : ""}`}
+            } ${isToday && tab.dayOfWeek === now.getDay() ? "ring-1 ring-badge/30" : ""}`}
           >
             {tab.label}
           </button>
@@ -128,10 +128,10 @@ export default function ScheduleView() {
               key={`${period.name}-${period.start}`}
               className={`rounded-xl border p-4 transition-colors ${
                 isCurrent
-                  ? "border-red dark:border-red/40 bg-red/5"
+                  ? "border-card-accent dark:border-dark-card-accent/40 bg-card-accent/5"
                   : isPast
                     ? "border-border dark:border-dark-border bg-bg dark:bg-dark-surface opacity-60"
-                    : "border-border dark:border-dark-border bg-white dark:bg-dark-surface"
+                    : "border-border dark:border-dark-border bg-surface dark:bg-dark-surface"
               }`}
             >
               <div className="flex items-center justify-between">
@@ -140,13 +140,13 @@ export default function ScheduleView() {
                     <span className="text-sm text-green-600">&#10003;</span>
                   )}
                   {isCurrent && (
-                    <span className="rounded-full bg-red px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-white">
+                    <span className="rounded-full bg-badge px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-white">
                       Now
                     </span>
                   )}
                   <div>
                     <p
-                      className={`font-display font-semibold ${isCurrent ? "text-navy" : "text-text dark:text-dark-text"}`}
+                      className={`font-display font-semibold ${isCurrent ? "text-heading" : "text-text dark:text-dark-text"}`}
                     >
                       {period.name}
                     </p>
@@ -157,7 +157,7 @@ export default function ScheduleView() {
                   </div>
                 </div>
                 {isCurrent && (
-                  <span className="font-mono text-lg font-bold tabular-nums text-red">
+                  <span className="font-mono text-lg font-bold tabular-nums text-card-accent">
                     {formatCountdown(
                       Math.max(0, getTimeRemaining(period, now)),
                     )}
@@ -173,7 +173,7 @@ export default function ScheduleView() {
       <div className="flex justify-center pt-2">
         <button
           onClick={() => setShowImage(true)}
-          className="flex items-center gap-2 rounded-lg border border-border dark:border-dark-border bg-white dark:bg-dark-surface px-4 py-2.5 text-sm text-muted dark:text-dark-muted transition-colors hover:border-red/30 hover:text-red dark:hover:text-dark-text"
+          className="flex items-center gap-2 rounded-lg border border-border dark:border-dark-border bg-surface dark:bg-dark-surface px-4 py-2.5 text-sm text-muted dark:text-dark-muted transition-colors hover:border-card-accent/30 hover:text-card-accent dark:hover:text-dark-text"
         >
           <svg
             className="h-4 w-4"
@@ -199,7 +199,7 @@ export default function ScheduleView() {
           onClick={() => setShowImage(false)}
         >
           <div
-            className="relative max-h-[90vh] w-[80vw] overflow-auto rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-bg shadow-xl"
+            className="relative max-h-[90vh] w-[80vw] overflow-auto rounded-xl border border-border dark:border-dark-border bg-surface dark:bg-dark-bg shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button

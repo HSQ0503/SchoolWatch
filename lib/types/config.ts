@@ -58,12 +58,26 @@ export type SchoolConfig = {
   };
 
   colors: {
-    primary: string;
-    primaryLight: string;
-    accent: string;
-    accentLight: string;
-    darkBg: string;
-    darkSurface: string;
+    light: {
+      navbar: string;
+      navText: string;
+      background: string;
+      heading: string;
+      ring: string;
+      surface: string;
+      cardAccent: string;
+      badge: string;
+    };
+    dark: {
+      navbar: string;
+      navText: string;
+      background: string;
+      heading: string;
+      ring: string;
+      surface: string;
+      cardAccent: string;
+      badge: string;
+    };
   };
 
   storagePrefix: string;

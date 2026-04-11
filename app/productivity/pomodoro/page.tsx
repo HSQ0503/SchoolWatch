@@ -8,10 +8,10 @@ import { storageKey } from "@/lib/storage";
 type Mode = "focus" | "short" | "long" | "custom";
 
 const PRESETS: { mode: Mode; label: string; minutes: number; color: string; ringColor: string }[] = [
-  { mode: "focus", label: "Focus", minutes: 25, color: "text-red dark:text-red-light", ringColor: "#d43344" },
+  { mode: "focus", label: "Focus", minutes: 25, color: "text-ring dark:text-dark-ring", ringColor: "#d43344" },
   { mode: "short", label: "Short Break", minutes: 5, color: "text-green-600 dark:text-green-400", ringColor: "#16a34a" },
   { mode: "long", label: "Long Break", minutes: 15, color: "text-yellow-600 dark:text-yellow-400", ringColor: "#ca8a04" },
-  { mode: "custom", label: "Custom", minutes: 10, color: "text-navy-light dark:text-navy-light", ringColor: "#2d4a8e" },
+  { mode: "custom", label: "Custom", minutes: 10, color: "text-heading dark:text-dark-heading", ringColor: "#2d4a8e" },
 ];
 
 const RADIUS = 90;
@@ -198,7 +198,7 @@ export default function PomodoroPage() {
     <div className="flex flex-col items-center">
       <Link
         href="/productivity"
-        className="mb-8 self-start text-sm text-muted transition-colors hover:text-red dark:text-dark-muted dark:hover:text-dark-text"
+        className="mb-8 self-start text-sm text-muted transition-colors hover:text-card-accent dark:text-dark-muted dark:hover:text-dark-text"
       >
         ← Back to Productivity
       </Link>
@@ -215,7 +215,7 @@ export default function PomodoroPage() {
             onClick={() => switchMode(p.mode)}
             className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
               mode === p.mode
-                ? "bg-red text-white"
+                ? "bg-badge text-white"
                 : "text-muted hover:text-text dark:text-dark-muted dark:hover:text-dark-text"
             }`}
           >
@@ -276,14 +276,14 @@ export default function PomodoroPage() {
         {running ? (
           <button
             onClick={handlePause}
-            className="rounded-xl bg-red px-8 py-3 font-medium text-white transition-colors hover:bg-red-light"
+            className="rounded-xl bg-badge px-8 py-3 font-medium text-white transition-colors hover:bg-badge/70"
           >
             Pause
           </button>
         ) : (
           <button
             onClick={handleStart}
-            className="rounded-xl bg-red px-8 py-3 font-medium text-white transition-colors hover:bg-red-light"
+            className="rounded-xl bg-badge px-8 py-3 font-medium text-white transition-colors hover:bg-badge/70"
           >
             {remaining < totalSeconds && remaining > 0 ? "Resume" : "Start"}
           </button>
@@ -316,7 +316,7 @@ export default function PomodoroPage() {
               <div
                 key={i}
                 className={`h-3 w-3 rounded-full ${
-                  (i + 1) % 4 === 0 ? "bg-yellow-500" : "bg-red dark:bg-red-light"
+                  (i + 1) % 4 === 0 ? "bg-yellow-500" : "bg-badge dark:bg-dark-badge"
                 }`}
               />
             ))

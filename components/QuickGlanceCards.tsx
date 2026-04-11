@@ -78,9 +78,9 @@ export default function QuickGlanceCards() {
     <div className="grid gap-4 md:grid-cols-2">
       <Link
         href="/events"
-        className="rounded-xl border border-red/15 border-l-[3px] border-l-red bg-white p-5 shadow-sm transition-all hover:shadow-md hover:bg-red/5 dark:border-dark-border dark:border-l-red dark:bg-dark-surface dark:shadow-none dark:backdrop-blur-md dark:hover:bg-white/10"
+        className="rounded-xl border border-card-accent/15 border-l-[3px] border-l-card-accent bg-surface p-5 shadow-sm transition-all hover:shadow-md hover:bg-card-accent/5 dark:border-dark-border dark:border-l-dark-card-accent dark:bg-dark-surface dark:shadow-none dark:backdrop-blur-md dark:hover:bg-white/10"
       >
-        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-red">
+        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-card-accent">
           {eventLabel}
         </p>
         <p className="font-display text-lg font-bold text-text dark:text-dark-text">
@@ -100,9 +100,9 @@ export default function QuickGlanceCards() {
 
       <Link
         href="/todos"
-        className="rounded-xl border border-red/15 border-l-[3px] border-l-red bg-white p-5 shadow-sm transition-all hover:shadow-md hover:bg-red/5 dark:border-dark-border dark:border-l-red dark:bg-dark-surface dark:shadow-none dark:backdrop-blur-md dark:hover:bg-white/10"
+        className="rounded-xl border border-card-accent/15 border-l-[3px] border-l-card-accent bg-surface p-5 shadow-sm transition-all hover:shadow-md hover:bg-card-accent/5 dark:border-dark-border dark:border-l-dark-card-accent dark:bg-dark-surface dark:shadow-none dark:backdrop-blur-md dark:hover:bg-white/10"
       >
-        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-red dark:text-red-light">
+        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-card-accent dark:text-dark-card-accent">
           To-Do
         </p>
         <p className="font-display text-lg font-bold text-text dark:text-dark-text">

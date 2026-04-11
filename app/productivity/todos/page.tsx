@@ -13,7 +13,7 @@ export default function ProductivityTodosPage() {
     <div>
       <Link
         href="/productivity"
-        className="mb-8 inline-block text-sm text-muted transition-colors hover:text-red dark:text-dark-muted dark:hover:text-dark-text"
+        className="mb-8 inline-block text-sm text-muted transition-colors hover:text-card-accent dark:text-dark-muted dark:hover:text-dark-text"
       >
         ← Back to Productivity
       </Link>

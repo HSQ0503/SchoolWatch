@@ -144,7 +144,7 @@ export default function CalendarView({ events, interactive, onDateClick, onDateR
       <div className="flex items-center justify-between">
         <button
           onClick={() => navigateMonth(-1)}
-          className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-red/30 hover:text-text dark:border-dark-border dark:text-dark-muted dark:hover:text-dark-text"
+          className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-card-accent/30 hover:text-text dark:border-dark-border dark:text-dark-muted dark:hover:text-dark-text"
         >
           <svg
             className="h-4 w-4"
@@ -165,7 +165,7 @@ export default function CalendarView({ events, interactive, onDateClick, onDateR
         </h3>
         <button
           onClick={() => navigateMonth(1)}
-          className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-red/30 hover:text-text dark:border-dark-border dark:text-dark-muted dark:hover:text-dark-text"
+          className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-card-accent/30 hover:text-text dark:border-dark-border dark:text-dark-muted dark:hover:text-dark-text"
         >
           <svg
             className="h-4 w-4"
@@ -212,20 +212,20 @@ export default function CalendarView({ events, interactive, onDateClick, onDateR
                 onMouseEnter={day && interactive ? () => handleMouseEnter(key) : undefined}
                 className={`min-h-[90px] border-b border-r border-border p-2 sm:min-h-[120px] dark:border-dark-border ${
                   inRange
-                    ? "bg-red/10 dark:bg-red/15"
+                    ? "bg-card-accent/10 dark:bg-dark-card-accent/15"
                     : isToday
-                      ? "bg-red/5"
+                      ? "bg-card-accent/5"
                       : day
-                        ? "bg-white dark:bg-dark-surface"
+                        ? "bg-surface dark:bg-dark-surface"
                         : "bg-bg/50 dark:bg-dark-bg/30"
-                } ${day && interactive ? "cursor-pointer select-none transition-colors hover:bg-red/5 dark:hover:bg-red/10" : ""}`}
+                } ${day && interactive ? "cursor-pointer select-none transition-colors hover:bg-card-accent/5 dark:hover:bg-dark-card-accent/10" : ""}`}
               >
                 {day && (
                   <>
                     <span
                       className={`inline-flex h-7 w-7 items-center justify-center text-sm font-medium ${
                         isToday
-                          ? "rounded-full bg-red text-white"
+                          ? "rounded-full bg-badge text-white"
                           : "text-text dark:text-dark-text"
                       }`}
                     >

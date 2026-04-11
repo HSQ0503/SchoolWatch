@@ -47,12 +47,26 @@ const config: SchoolConfig = {
   // Tip: search "[your school] brand colors" to find the exact hex codes.
 
   colors: {
-    primary: "#003da5",                         // main school color (nav, headings)
-    primaryLight: "#1a5fc7",                    // lighter version of primary
-    accent: "#003da5",                          // buttons, badges, active states
-    accentLight: "#1a5fc7",                     // lighter accent (hover states, gradients)
-    darkBg: "#0a1628",                          // dark mode page background
-    darkSurface: "rgba(10, 22, 50, 0.85)",      // dark mode card background
+    light: {
+      navbar: "#ffffff",
+      navText: "#003da5",
+      background: "#f5f7fa",
+      heading: "#003da5",
+      ring: "#003da5",
+      surface: "#ffffff",
+      cardAccent: "#003da5",
+      badge: "#003da5",
+    },
+    dark: {
+      navbar: "#0a1628",
+      navText: "#ffffff",
+      background: "#0a1628",
+      heading: "#f1f5f9",
+      ring: "#1a5fc7",
+      surface: "rgba(10, 22, 50, 0.85)",
+      cardAccent: "#003da5",
+      badge: "#003da5",
+    },
   },
 
   // ── LOCAL STORAGE PREFIX ──────────────────────────
