@@ -112,6 +112,19 @@ export default function RootLayout({
       >
         <Navbar />
         <main className="mx-auto max-w-5xl px-4 pb-12 pt-20">{children}</main>
+        <footer className="mx-auto max-w-5xl px-4 pb-10 text-center">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted dark:text-dark-muted">
+            made with{" "}
+            <a
+              href="https://github.com/HSQ0503/schoolwatch-wizard"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-dotted underline-offset-4 transition-colors hover:text-text dark:hover:text-dark-text"
+            >
+              SchoolWatch
+            </a>
+          </p>
+        </footer>
         <Analytics />
       </body>
     </html>
