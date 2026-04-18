@@ -103,4 +103,10 @@ export type SchoolConfig = {
     events: boolean;
     productivity: boolean;
   };
+
+  announcements?: {
+    enabled: boolean;
+    apiUrl: string; // e.g. "https://schoolwatch-wizard.com"
+    slug: string;   // e.g. "xyz-prep"
+  };
 };
